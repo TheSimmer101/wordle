@@ -15,8 +15,16 @@ If the letter is
 Requirements:
 - C++ Compiler (g++)
 - ncurses library
-
+-Makefile
 *These are available for both Linux, Windows, and Mac.
-See the installation guide for you device if not alreayd installed.
+See the installation guide for you device if not already installed.
+
+
+
+To compile and run:
+  Inside the directory where this repository is stored, type "make run" in the terminal (without quotes).
+  make clean to remove executable files.
+  
+
 
 ncurses was used here to display colors in the terminal, as well as update in real-time with the player's input.
