@@ -43,7 +43,7 @@ struct coordinates
     void moveDown()
     {
         y++;
-        //set x to leftmost value
+        x = 0; //set x to leftmost value
     }
 };
 
@@ -64,13 +64,13 @@ class Wordle
     //to do: add helper function to read text file and fill the maps with data
 
     
-    int countLetters(const std::string& s, const char& c) const;
+    // int countLetters(const std::string& s, const char& c) const;
 
     public:
     Wordle();
     void getGuess();
     void print() const;
-
+    int countLetters(const std::string& s, const char& c) const;
     ~Wordle();
 
 
