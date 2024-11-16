@@ -10,9 +10,12 @@ all: $(PROG)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(PROG): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS) -lncurses
 
 clean:
 	rm -rf $(EXEC) *.o *.out words
 
 rebuild: clean all
+
+run: all 
+	./$(PROG)
