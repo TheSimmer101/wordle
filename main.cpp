@@ -5,9 +5,13 @@ using namespace std;
 int main()
 {
     Wordle w;
+
     w.getGuess();
     w.getGuess();
-   // w.print();
+    w.getGuess();
+    w.getGuess();
+    w.getGuess();
+    // w.print();
 
     getch();
     return 0;
