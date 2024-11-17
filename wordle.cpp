@@ -56,21 +56,32 @@ void Wordle::print() const{
 
 void Wordle::getGuess()
 {
+
     user_input = getch();
     if(user_input == KEY_BACKSPACE)
         currentPos.moveLeft();
     else
     {
-        //mvprintw()
-        mvprintw(currentPos.y,currentPos.x++,"%c",user_input);
-        currentPos.x++;
+        guess+=user_input;
+        mvprintw(currentPos.y,currentPos.x,"%c",user_input);
+        //currentPos.x++;
         currentPos.moveRight();
+        move(currentPos.y,currentPos.x);
         //mvprintw(currentPos.y,currentPos.x,"%c",c);
         
     }
 }
 
-int Wordle::countLetters(const std::string& s, const char& c) const {
+int Wordle::charIndex(const std::string& str, const char& c) const
+{
+    for(int i = 0; i < str.length();i++)
+    {
+        if(str[i] == c)
+            return i;
+    }
+    return -1;
+}
+int Wordle::countLetters(const std::string& s, const char& c, const int& startIndex) const {
     int count = 0;
     for(char ch : s) {
         if(ch == c) {
@@ -81,7 +92,25 @@ int Wordle::countLetters(const std::string& s, const char& c) const {
     return count;
 }
 
+std::vector<Wordle::colors> Wordle::getColors(const std::string guess) const
+{
+    std::vector<Wordle::colors> result = {};
 
+    for(int k = 0; k < guess.length();k++)
+    {
+        char letter = guess[k];
+        if(countLetters(answer,letter,0) == 0) //letter not in string at all
+            result.push_back(white);
+        else if (charIndex(answer,letter) != k) //might need to modify case for yellow, for example answer = "jolly", and guess = "local", both l's would need to be yellow
+        {
+            result.push_back(yellow);
+        }
+        else if(charIndex(answer,letter) == k)
+            result.push_back(green);
+    }
+    
+    return result;
+}
 
 
 Wordle::~Wordle()

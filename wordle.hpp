@@ -43,7 +43,7 @@ struct coordinates
     void moveDown()
     {
         y++;
-        x = 0; //set x to leftmost value
+        //set x to leftmost value
     }
 };
 
@@ -52,7 +52,7 @@ class Wordle
     private:
     std::string answer;
     std::string guess; //what the player enters (string format)
-    char user_input; //letter entered by user, (concate this to guess for each row)
+    int user_input; //letter entered by user, (concate this to guess for each row)
     int attempts; //how many guesses the player made
     coordinates currentPos;
     std::unordered_map<std::string, std::vector<std::string>> possible_answers; //only winter/christmas related words
@@ -62,15 +62,18 @@ class Wordle
     //idk if int is the best value for valid_guesses
 
     //to do: add helper function to read text file and fill the maps with data
+    //
+    enum colors{green, yellow, white};
+    std::vector<colors> getColors(const std::string guess) const; //returns a vector that shows color for each letter in user guess, for example if guess == answer then vector should be {green, green, green..}
+    int countLetters(const std::string& s, const char& c, const int& startIndex) const;
+    int charIndex(const std::string& str, const char& c) const; //returns the 1st index that char c appears in string. -1 if letter doesn't appear
 
-    
-    // int countLetters(const std::string& s, const char& c) const;
 
     public:
     Wordle();
     void getGuess();
     void print() const;
-    int countLetters(const std::string& s, const char& c) const;
+
     ~Wordle();
 
 

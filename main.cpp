@@ -6,6 +6,7 @@ int main()
 {
     Wordle w;
     w.getGuess();
+    w.getGuess();
    // w.print();
 
     getch();
