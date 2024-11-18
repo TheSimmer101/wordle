@@ -59,15 +59,39 @@ void Wordle::print() const
 void Wordle::getGuess()
 {
 
+    // user_input = getch();
+    // if (user_input == KEY_BACKSPACE)
+    // {
+    //     if (!guess.empty())
+    //     {
+    //         guess = guess.substr(0, guess.length() - 1);
+    //         currentPos.moveLeft();
+    //         move(currentPos.y, currentPos.x);
+    //         mvprintw(currentPos.y, currentPos.x, "%c", '_');
+    //         move(currentPos.y, currentPos.x);
+    //     }
+    // }
+    // else
+    // {
+    //     guess += user_input;
+    //     mvprintw(currentPos.y, currentPos.x, "%c", user_input);
+    //     // currentPos.x++;
+    //     currentPos.moveRight();
+    //     move(currentPos.y, currentPos.x);
+    //     // mvprintw(currentPos.y,currentPos.x,"%c",c);
+    // }
+
     user_input = getch();
-    if (user_input == KEY_BACKSPACE)
+    const int BACKSPACE_KEY = 127; // ascii key for delete character, adjust if your terminal uses a different code for backspace
+    
+    if (user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
     {
         if (!guess.empty())
         {
-            guess = guess.substr(0, guess.length() - 1);
-            currentPos.moveLeft();
-            move(currentPos.y, currentPos.x);
-            mvprintw(currentPos.y, currentPos.x, "%c", '_');
+            guess = guess.substr(0, guess.length() - 1); 
+            currentPos.moveLeft(); 
+            move(currentPos.y, currentPos.x); 
+            addch('_'); // replace backspace with dash
             move(currentPos.y, currentPos.x);
         }
     }
@@ -75,11 +99,10 @@ void Wordle::getGuess()
     {
         guess += user_input;
         mvprintw(currentPos.y, currentPos.x, "%c", user_input);
-        // currentPos.x++;
         currentPos.moveRight();
         move(currentPos.y, currentPos.x);
-        // mvprintw(currentPos.y,currentPos.x,"%c",c);
     }
+   
 }
 
 void Wordle::play()
