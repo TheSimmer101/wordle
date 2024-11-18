@@ -8,14 +8,13 @@
 #include <unordered_map>
 #include <vector>
 
-
-//coordinates in ncurses are y, x
+// coordinates in ncurses are y, x
 struct coordinates
 {
     int x;
     int y;
 
-    public:
+public:
     coordinates(int a, int b)
     {
         x = a;
@@ -28,54 +27,58 @@ struct coordinates
         y = 0;
     }
 
-//idk what our range of coordinates will be yet, (i want it centered, but the format is _ _ _ _ _)
-//max y value is unknown rn, moveRight() will have a conditional (can't move more right than 1st dash)
+    // idk what our range of coordinates will be yet, (i want it centered, but the format is _ _ _ _ _)
+    // max y value is unknown rn, moveRight() will have a conditional (can't move more right than 1st dash)
     void moveRight()
     {
-        x+=2;
+        x += 2;
     }
 
     void moveLeft()
     {
-        x-=2;
+        x -= 2;
     }
 
     void moveDown()
     {
         y++;
-        //set x to leftmost value
+        // set x to leftmost value
     }
 };
 
 class Wordle
 {
-    private:
+private:
     std::string answer;
-    std::string guess; //what the player enters (string format)
-    int user_input; //letter entered by user, (concate this to guess for each row)
-    int attempts; //how many guesses the player made
+    std::string guess; // what the player enters (string format)
+    int user_input;    // letter entered by user, (concate this to guess for each row)
+    int attempts;      // how many guesses the player made
     coordinates currentPos;
-    std::unordered_map<std::string, std::vector<std::string>> possible_answers; //only winter/christmas related words
+    std::unordered_map<std::string, std::vector<std::string>> possible_answers; // only winter/christmas related words
     std::unordered_map<std::string, std::vector<std::string>> troll_answers;
-    std::unordered_map<std::string, int> valid_guesses; //properly spelled words (all of this in possible answers map too), will delete this if we get a spellcheck api/library working
-    //value in maps is a string vector for hints.
-    //idk if int is the best value for valid_guesses
+    std::unordered_map<std::string, int> valid_guesses; // properly spelled words (all of this in possible answers map too), will delete this if we get a spellcheck api/library working
+    // value in maps is a string vector for hints.
+    // idk if int is the best value for valid_guesses
 
-    //to do: add helper function to read text file and fill the maps with data
+    // to do: add helper function to read text file and fill the maps with data
     //
-    enum colors{green, yellow, white};
-    std::vector<colors> getColors(const std::string guess) const; //returns a vector that shows color for each letter in user guess, for example if guess == answer then vector should be {green, green, green..}
-    int countLetters(const std::string& s, const char& c, const int& startIndex) const;
-    int charIndex(const std::string& str, const char& c) const; //returns the 1st index that char c appears in string. -1 if letter doesn't appear
+    enum colors
+    {
+        green,
+        yellow,
+        white
+    };
+    std::vector<colors> getColors(const std::string guess) const; // returns a vector that shows color for each letter in user guess, for example if guess == answer then vector should be {green, green, green..}
+    int countLetters(const std::string &s, const char &c, const int &startIndex) const;
+    int charIndex(const std::string &str, const char &c) const; // returns the 1st index that char c appears in string. -1 if letter doesn't appear
 
-
-    public:
+public:
     Wordle();
     void getGuess();
+    void play();
     void print() const;
+    bool realWord(const std::string &guess) const; // helper function to check if the word is an actual word in the dictionary
 
     ~Wordle();
-
-
 };
 #endif

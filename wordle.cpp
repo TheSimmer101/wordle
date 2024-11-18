@@ -82,6 +82,45 @@ void Wordle::getGuess()
     }
 }
 
+void Wordle::play()
+{
+    bool finalGuess = false; // this is the word they want to enter after all inputs
+    for (int i = 0; i < 5; i++)
+    {
+        // this is to get each char for their word until they get their final answer
+        // to do:
+        // allow them to enter the answer instead of just accepting it at the word length
+        while (!finalGuess)
+        {
+            getGuess();
+            if (guess.length() == answer.length())
+            {
+                finalGuess = true;
+            }
+        }
+
+        // this is to check if the guess is correct. if it is, exits the loop
+        // if it isn't, it continues the guesses and their guess resets
+        if (guess == answer)
+        {
+            i = 5;
+        }
+        else
+        {
+            finalGuess = false;
+            guess = "";
+            // to do
+            // start a new line with new dashes
+        }
+    }
+}
+
+// checks if it's a real word
+bool Wordle::realWord(const std::string &guess) const
+{
+    return false;
+}
+
 int Wordle::charIndex(const std::string &str, const char &c) const
 {
     for (int i = 0; i < str.length(); i++)
