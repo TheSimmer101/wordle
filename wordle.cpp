@@ -134,6 +134,25 @@ void Wordle::play()
             guess = "";
             // to do
             // start a new line with new dashes
+            
+            // currentPos.y += 1;
+           
+            // // generate a new line of dashes
+            // char dash[answer.length() * 2 - 1];
+            // for (size_t j = 0; j < answer.length(); ++j)
+            // {
+            //     dash[j * 2] = '_'; // Add dash
+            //     if (j < answer.length() - 1)
+            //     {
+            //         dash[j * 2 + 1] = ' ';
+            //     }
+            // }
+            // mvprintw(currentPos.y, currentPos.x, "%s", dash);
+            // move(currentPos.y, currentPos.x);
+            // refresh();
+            
+            
+            
         }
     }
 }
