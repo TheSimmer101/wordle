@@ -17,55 +17,104 @@ Wordle::Wordle()
     // attempts = 0;
     // answer = "hello"; //this is a placeholder for now, but it will be a randomly picked word
 
-    initscr(); // generates a screen
-    // raw();
-    // intrflush(stdscr, FALSE); // this stops the program to stop running when an interrupt key is read
-    keypad(stdscr, true);               // allows keypad input
-    noecho();                           // user input shows up screen immediately after typed.
-    answer = "hello";                   // this is a placeholder for now, but it will be a randomly picked word
-    // char dash[answer.length() * 2 - 1]; // generates dash based on length of answer
+    // initscr(); // generates a screen
+    // // raw();
+    // // intrflush(stdscr, FALSE); // this stops the program to stop running when an interrupt key is read
+    // keypad(stdscr, true);               // allows keypad input
+    // noecho();                           // user input shows up screen immediately after typed.
+    // answer = "hello";                   // this is a placeholder for now, but it will be a randomly picked word
+    // // char dash[answer.length() * 2 - 1]; // generates dash based on length of answer
 
-    // for (size_t i = 0; i < answer.length(); ++i)
+    // // for (size_t i = 0; i < answer.length(); ++i)
+    // // {
+    // //     dash[i * 2] = '_'; // adds dash
+    // //     if (i < answer.length() - 1)
+    // //     {
+    // //         dash[i * 2 + 1] = ' '; // adds spaces in between dashes
+    // //     }
+    // // }
+
+    // // gets terminal dimensions to center it
+
+    // char dash[] = "_ _ _ _ _";
+
+    // if(answer.length() == 6)
+    //     char dash[] = "_ _ _ _ _ _";
+
+    // int rows, cols;
+    // getmaxyx(stdscr, rows, cols);
+
+    // int r = rows / 2;
+    // int dash_length = answer.length() * 2 - 1;
+    // int c = (cols - dash_length) / 2;
+    // std::cout << "\n\nrow: " << r;
+    // //std::cout << "\n col: " << c;
+    // currentPos.x = c;
+    // currentPos.y = r;
+
+    // //hello there
+    // int row = 14;
+    // for(int i = 0; i < 5; i++)
     // {
-    //     dash[i * 2] = '_'; // adds dash
-    //     if (i < answer.length() - 1)
-    //     {
-    //         dash[i * 2 + 1] = ' '; // adds spaces in between dashes
-    //     }
+
+    //     mvprintw(row, 114, "%s", dash);
+    //     row++;
+    //     //mvprintw(currentPos.y, currentPos.x, "%s", dash);
+    //     currentPos.y++;
     // }
+    // currentPos.y = r;
+    // move(currentPos.y, currentPos.x);
+    // refresh();
+    // attempts = 0;
 
-    // gets terminal dimensions to center it
-
-    char dash[] = "_ _ _ _ _";
-
-    if(answer.length() == 6)
-        char dash[] = "_ _ _ _ _ _";
+    initscr();                        
+    keypad(stdscr, true);
+    // noecho();    
+    answer = "hello"; 
+    attempts = 0;
 
     int rows, cols;
-    getmaxyx(stdscr, rows, cols);
+    getmaxyx(stdscr, rows, cols); 
 
-    int r = rows / 2;
-    int dash_length = answer.length() * 2 - 1;
+    int r = rows / 2; 
+    int dash_length = answer.length() * 2 - 1; 
     int c = (cols - dash_length) / 2;
-    std::cout << "\n\nrow: " << r;
-    //std::cout << "\n col: " << c;
-    currentPos.x = c;
-    currentPos.y = r;
 
-    //hello there
-    int row = 14;
-    for(int i = 0; i < 5; i++)
+    
+    char dash[dash_length + 1];
+    for (size_t i = 0; i < answer.length(); ++i)
     {
-
-        mvprintw(row, 114, "%s", dash);
-        row++;
-        //mvprintw(currentPos.y, currentPos.x, "%s", dash);
-        currentPos.y++;
+        dash[i * 2] = '_';            
+        if (i < answer.length() - 1)
+        {
+            dash[i * 2 + 1] = ' ';  
+        }
     }
+    dash[dash_length] = '\0';
+
+   
+    for (int i = 0; i < 5; ++i)
+    {
+        mvprintw(r + i, c, "%s", dash); 
+    }
+
+  
+    currentPos.x = c;
     currentPos.y = r;
     move(currentPos.y, currentPos.x);
     refresh();
-    attempts = 0;
+
+
+
+
+
+
+
+
+
+
+
+
 }
 void Wordle::print() const
 {
