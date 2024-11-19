@@ -147,18 +147,57 @@ void Wordle::getGuess()
     //     // mvprintw(currentPos.y,currentPos.x,"%c",c);
     // }
 
-    user_input = getch();
-    const int BACKSPACE_KEY = 127; // ascii key for delete character, adjust if your terminal uses a different code for backspace
+    // user_input = getch();
+    // const int BACKSPACE_KEY = 127; // ascii key for delete character, adjust if your terminal uses a different code for backspace
     
+    // if (user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
+    // {
+    //     if (!guess.empty())
+    //     {
+    //         guess = guess.substr(0, guess.length() - 1); 
+    //         currentPos.moveLeft(); 
+    //         move(currentPos.y, currentPos.x); 
+    //         addch('_'); // replace backspace with dash
+    //         move(currentPos.y, currentPos.x);
+    //     }
+    // }
+    // else
+    // {
+    //     guess += user_input;
+    //     mvprintw(currentPos.y, currentPos.x, "%c", user_input);
+    //     currentPos.moveRight();
+    //     move(currentPos.y, currentPos.x);
+    // }
+
+    user_input = getch();
+    const int BACKSPACE_KEY = 127; // ascii key for delete character
+
+    int rows, cols;
+    getmaxyx(stdscr, rows, cols);
+
+    int dash_length = answer.length() * 2 - 1;
+    int leftmost_x = (cols - dash_length) / 2;
+    int rightmost_x = leftmost_x + dash_length - 1; // last dash
+
     if (user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
     {
         if (!guess.empty())
         {
-            guess = guess.substr(0, guess.length() - 1); 
-            currentPos.moveLeft(); 
-            move(currentPos.y, currentPos.x); 
+            guess = guess.substr(0, guess.length() - 1);
+            currentPos.moveLeft();
+            move(currentPos.y, currentPos.x);
             addch('_'); // replace backspace with dash
             move(currentPos.y, currentPos.x);
+        }
+    }
+    else if (user_input == KEY_ENTER) // if user presses enter
+    {
+        if (currentPos.x == rightmost_x) // current position is on last dash
+        {
+            currentPos.y++; // moves to next row
+            currentPos.x = leftmost_x; // current position goes to leftmost dash
+            move(currentPos.y, currentPos.x);
+            refresh();
         }
     }
     else
@@ -166,6 +205,13 @@ void Wordle::getGuess()
         guess += user_input;
         mvprintw(currentPos.y, currentPos.x, "%c", user_input);
         currentPos.moveRight();
+
+        
+        if (currentPos.x > rightmost_x)
+        {
+            currentPos.y++;
+            currentPos.x = leftmost_x;
+        }
         move(currentPos.y, currentPos.x);
     }
    
