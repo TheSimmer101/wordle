@@ -52,6 +52,7 @@ Wordle::Wordle()
     currentPos.x = c;
     currentPos.y = r;
 
+    //hello there
     int row = 14;
     for(int i = 0; i < 5; i++)
     {
