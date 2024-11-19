@@ -88,6 +88,9 @@ Wordle::Wordle()
         pos++;
     }
 
+    // generate random position
+    srand(time(0));
+    int randomPos = 1 + rand() % 106;
     answer = possible_answers[1];
     attempts = 0;
 
