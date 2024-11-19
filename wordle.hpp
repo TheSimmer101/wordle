@@ -31,7 +31,20 @@ public:
     // max y value is unknown rn, moveRight() will have a conditional (can't move more right than 1st dash)
     void moveRight()
     {
-        x += 2;
+    // {   int rows, cols;
+    //     getmaxyx(stdscr, rows, cols);
+
+    //     int r = rows / 2;
+    
+    //     int c = (cols - 5) / 2;
+
+        if(x != 20)
+            x += 2;
+        else
+        {
+            y++;
+            x = 114;
+        }
     }
 
     void moveLeft()
@@ -42,6 +55,9 @@ public:
     void moveDown()
     {
         y++;
+
+        
+        //x = 
         // set x to leftmost value
     }
 };
