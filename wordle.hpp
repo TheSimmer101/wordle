@@ -29,14 +29,14 @@ public:
 
     // idk what our range of coordinates will be yet, (i want it centered, but the format is _ _ _ _ _)
     // max y value is unknown rn, moveRight() will have a conditional (can't move more right than 1st dash)
-    void moveRight()
+    void moveRight(int ch)
     {
-    // {   int rows, cols;
-    //     getmaxyx(stdscr, rows, cols);
+    // // {   int rows, cols;
+    // //     getmaxyx(stdscr, rows, cols);
 
-    //     int r = rows / 2;
+    // //     int r = rows / 2;
     
-    //     int c = (cols - 5) / 2;
+    // //     int c = (cols - 5) / 2;
 
         if(x != 20)
             x += 2;
@@ -45,6 +45,11 @@ public:
             y++;
             x = 114;
         }
+
+
+
+
+
     }
 
     void moveLeft()
