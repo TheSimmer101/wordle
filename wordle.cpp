@@ -67,54 +67,57 @@ Wordle::Wordle()
     // refresh();
     // attempts = 0;
 
-    initscr();                        
+    initscr();
     keypad(stdscr, true);
-    // noecho();    
-    answer = "hello"; 
+    // noecho();
+
+    // CREATE POSSIBLE ANSWER HASHMAP
+    std::ifstream infile; // creates variable for file to open for reading
+    infile.open("wordlist.txt");
+
+    if (infile.fail())
+    {
+        std::cerr << "File cannot be opened for reading.";
+        exit(1); // exit if failed to open the file
+    }
+    std::string line = ""; // holding a line from txt file for value
+    int pos = 1;           // holding pos for key
+    while (getline(infile, line))
+    {
+        possible_answers[pos] = line;
+        pos++;
+    }
+
+    answer = possible_answers[1];
     attempts = 0;
 
     int rows, cols;
-    getmaxyx(stdscr, rows, cols); 
+    getmaxyx(stdscr, rows, cols);
 
-    int r = rows / 2; 
-    int dash_length = answer.length() * 2 - 1; 
+    int r = rows / 2;
+    int dash_length = answer.length() * 2 - 1;
     int c = (cols - dash_length) / 2;
 
-    
     char dash[dash_length + 1];
     for (size_t i = 0; i < answer.length(); ++i)
     {
-        dash[i * 2] = '_';            
+        dash[i * 2] = '_';
         if (i < answer.length() - 1)
         {
-            dash[i * 2 + 1] = ' ';  
+            dash[i * 2 + 1] = ' ';
         }
     }
     dash[dash_length] = '\0';
 
-   
     for (int i = 0; i < 5; ++i)
     {
-        mvprintw(r + i, c, "%s", dash); 
+        mvprintw(r + i, c, "%s", dash);
     }
 
-  
     currentPos.x = c;
     currentPos.y = r;
     move(currentPos.y, currentPos.x);
     refresh();
-
-
-
-
-
-
-
-
-
-
-
-
 }
 void Wordle::print() const
 {
@@ -149,14 +152,14 @@ void Wordle::getGuess()
 
     // user_input = getch();
     // const int BACKSPACE_KEY = 127; // ascii key for delete character, adjust if your terminal uses a different code for backspace
-    
+
     // if (user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
     // {
     //     if (!guess.empty())
     //     {
-    //         guess = guess.substr(0, guess.length() - 1); 
-    //         currentPos.moveLeft(); 
-    //         move(currentPos.y, currentPos.x); 
+    //         guess = guess.substr(0, guess.length() - 1);
+    //         currentPos.moveLeft();
+    //         move(currentPos.y, currentPos.x);
     //         addch('_'); // replace backspace with dash
     //         move(currentPos.y, currentPos.x);
     //     }
@@ -194,7 +197,7 @@ void Wordle::getGuess()
     {
         if (currentPos.x == rightmost_x) // current position is on last dash
         {
-            currentPos.y++; // moves to next row
+            currentPos.y++;            // moves to next row
             currentPos.x = leftmost_x; // current position goes to leftmost dash
             move(currentPos.y, currentPos.x);
             refresh();
@@ -202,11 +205,10 @@ void Wordle::getGuess()
     }
     else
     {
-        guess += user_input;
-        mvprintw(currentPos.y, currentPos.x, "%c", user_input);
+        guess += toupper(user_input);
+        mvprintw(currentPos.y, currentPos.x, "%c", toupper(user_input));
         currentPos.moveRight();
 
-        
         if (currentPos.x > rightmost_x)
         {
             currentPos.y++;
@@ -214,7 +216,6 @@ void Wordle::getGuess()
         }
         move(currentPos.y, currentPos.x);
     }
-   
 }
 
 void Wordle::play()
@@ -246,9 +247,9 @@ void Wordle::play()
             guess = "";
             // to do
             // start a new line with new dashes
-            
+
             // currentPos.y += 1;
-           
+
             // // generate a new line of dashes
             // char dash[answer.length() * 2 - 1];
             // for (size_t j = 0; j < answer.length(); ++j)
@@ -262,9 +263,6 @@ void Wordle::play()
             // mvprintw(currentPos.y, currentPos.x, "%s", dash);
             // move(currentPos.y, currentPos.x);
             // refresh();
-            
-            
-            
         }
     }
 }

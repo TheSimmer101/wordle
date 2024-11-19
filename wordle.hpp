@@ -7,6 +7,8 @@
 #include <cstdlib>
 #include <unordered_map>
 #include <vector>
+#include <fstream>
+#include <sstream>
 
 // coordinates in ncurses are y, x
 struct coordinates
@@ -31,25 +33,20 @@ public:
     // max y value is unknown rn, moveRight() will have a conditional (can't move more right than 1st dash)
     void moveRight()
     {
-    // // {   int rows, cols;
-    // //     getmaxyx(stdscr, rows, cols);
+        // // {   int rows, cols;
+        // //     getmaxyx(stdscr, rows, cols);
 
-    // //     int r = rows / 2;
-    
-    // //     int c = (cols - 5) / 2;
+        // //     int r = rows / 2;
 
-        if(x != 20)
+        // //     int c = (cols - 5) / 2;
+
+        if (x != 20)
             x += 2;
         else
         {
             y++;
             x = 114;
         }
-
-
-
-
-
     }
 
     void moveLeft()
@@ -61,9 +58,8 @@ public:
     {
         y++;
 
-        
-        //x = 
-        // set x to leftmost value
+        // x =
+        //  set x to leftmost value
     }
 };
 
@@ -75,7 +71,7 @@ private:
     int user_input;    // letter entered by user, (concate this to guess for each row)
     int attempts;      // how many guesses the player made
     coordinates currentPos;
-    std::unordered_map<std::string, std::vector<std::string>> possible_answers; // only winter/christmas related words
+    std::unordered_map<int, std::string> possible_answers; // only winter/christmas related words
     std::unordered_map<std::string, std::vector<std::string>> troll_answers;
     std::unordered_map<std::string, int> valid_guesses; // properly spelled words (all of this in possible answers map too), will delete this if we get a spellcheck api/library working
     // value in maps is a string vector for hints.

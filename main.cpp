@@ -4,16 +4,16 @@ using namespace std;
 
 int main()
 {
-    Wordle w;
+  Wordle w;
 
-   // w.play();
-     w.getGuess();
-    w.getGuess();
-    w.getGuess();
-    w.getGuess();
-    w.getGuess();
-    // w.print();
+  w.play();
+  // w.getGuess();
+  // w.getGuess();
+  // w.getGuess();
+  // w.getGuess();
+  // w.getGuess();
+  // w.print();
 
-    getch();
-    return 0;
+  getch();
+  return 0;
 }
