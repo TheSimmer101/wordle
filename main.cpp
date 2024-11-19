@@ -6,12 +6,12 @@ int main()
 {
   Wordle w;
 
-  w.play();
-  // w.getGuess();
-  // w.getGuess();
-  // w.getGuess();
-  // w.getGuess();
-  // w.getGuess();
+  // w.play();
+  w.getGuess();
+  w.getGuess();
+  w.getGuess();
+  w.getGuess();
+  w.getGuess();
   // w.print();
 
   getch();

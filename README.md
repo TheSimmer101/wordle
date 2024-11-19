@@ -5,19 +5,20 @@ Using the ncurses library with C++, we recreated New York Times' Wordle.
 For those who are unfamiliar, this is essentially a word guessing game.
 
 You have five chances to guess the right word!
-For each letter in your guess, the color changes depending on how close you are to the answer.
-If the letter is
-  Green: the letter is in the correct spot, well done!
-  Yellow: the letter is somewhere in the word, but not where you put it.
-  Gray/Black: the letter is not in the word at all, tough.
+For each letter in your guess, the color changes depending on how close you are to the answer. <br/>
+If the letter is <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Green: the letter is in the correct spot, well done! <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Yellow: the letter is somewhere in the word, but not where you put it. <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Gray/Black: the letter is not in the word at all, tough. <br/>
 
 
 Requirements:
 - C++ Compiler (g++)
 - ncurses library
--Makefile
-*These are available for both Linux, Windows, and Mac.
-See the installation guide for you device if not already installed.
+- Makefile
+
+*These are available for both Linux, Windows, and Mac. <br/>
+See the installation guide for your device if not already installed.
 
 
 
