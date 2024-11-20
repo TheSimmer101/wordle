@@ -66,6 +66,9 @@ public:
 class Wordle
 {
 private:
+    int leftmost_x;
+    int rightmost_x;
+
     std::string answer;
     std::string guess; // what the player enters (string format)
     int user_input;    // letter entered by user, (concate this to guess for each row)
@@ -91,7 +94,7 @@ private:
 
 public:
     Wordle();
-    void getGuess();
+    std::string getGuess();
     void play();
     void print() const;
     bool realWord(const std::string &guess) const; // helper function to check if the word is an actual word in the dictionary

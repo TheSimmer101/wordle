@@ -71,6 +71,21 @@ Wordle::Wordle()
     keypad(stdscr, true);
     // noecho();
 
+    int rowMAX, colMAX;
+    getmaxyx(stdscr, rowMAX, colMAX);
+
+    int dashes_length = answer.length() * 2 - 1;
+    leftmost_x = (colMAX - dashes_length) / 2;
+    rightmost_x = leftmost_x + dashes_length - 1; // last dash
+
+
+    start_color();
+    init_pair(1, COLOR_GREEN, COLOR_BLACK); // Pair 1: Green text on black background
+    init_pair(2, COLOR_YELLOW, COLOR_BLACK); 
+    init_pair(3, COLOR_WHITE, COLOR_BLACK);
+
+
+    
     // CREATE POSSIBLE ANSWER HASHMAP
     std::ifstream infile; // creates variable for file to open for reading
     infile.open("wordlist.txt");
@@ -128,7 +143,7 @@ void Wordle::print() const
     refresh();
 }
 
-void Wordle::getGuess()
+std::string Wordle::getGuess()
 {
 
     // user_input = getch();
@@ -175,6 +190,7 @@ void Wordle::getGuess()
     //     move(currentPos.y, currentPos.x);
     // }
 
+
     user_input = getch();
     const int BACKSPACE_KEY = 127; // ascii key for delete character
 
@@ -182,8 +198,8 @@ void Wordle::getGuess()
     getmaxyx(stdscr, rows, cols);
 
     int dash_length = answer.length() * 2 - 1;
-    int leftmost_x = (cols - dash_length) / 2;
-    int rightmost_x = leftmost_x + dash_length - 1; // last dash
+    leftmost_x = (cols - dash_length) / 2;
+    rightmost_x = leftmost_x + dash_length - 1; // last dash
 
     if (user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
     {
@@ -204,6 +220,7 @@ void Wordle::getGuess()
             currentPos.x = leftmost_x; // current position goes to leftmost dash
             move(currentPos.y, currentPos.x);
             refresh();
+            return guess;
         }
     }
     else
@@ -219,34 +236,49 @@ void Wordle::getGuess()
         }
         move(currentPos.y, currentPos.x);
     }
+    return guess;
 }
 
 void Wordle::play()
 {
-    bool finalGuess = false; // this is the word they want to enter after all inputs
+    //bool finalGuess = false; // this is the word they want to enter after all inputs
     for (int i = 0; i < 5; i++)
     {
         // this is to get each char for their word until they get their final answer
         // to do:
         // allow them to enter the answer instead of just accepting it at the word length
-        while (!finalGuess)
-        {
+        // while (!finalGuess)
+        // {
+            guess = "";
             getGuess();
-            if (guess.length() == answer.length())
+        //     if (guess.length() == answer.length())
+        //     {
+        //         finalGuess = true;
+        //     }
+        // }
+        std::vector<Wordle::colors> c = getColors(guess);
+        move(currentPos.y, leftmost_x);
+        for(int i = 0; i < guess.length(); i++)
+        {
+            if(c[i] == green)
             {
-                finalGuess = true;
+                attron(COLOR_PAIR(1));
+                printw("%c",guess[i]);
+                attroff(COLOR_PAIR(1));
+    
             }
+                
         }
 
         // this is to check if the guess is correct. if it is, exits the loop
         // if it isn't, it continues the guesses and their guess resets
         if (guess == answer)
         {
-            i = 5;
+            break;
         }
         else
         {
-            finalGuess = false;
+            //finalGuess = false;
             guess = "";
             // to do
             // start a new line with new dashes
@@ -268,6 +300,8 @@ void Wordle::play()
             // refresh();
         }
     }
+
+    //mvprintw(100,100, "%s", "yay you did it!");
 }
 
 // checks if it's a real word
