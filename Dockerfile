@@ -50,8 +50,9 @@ RUN apt-get update && apt-get install -y \
 ENV LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/usr/local/lib:$LD_LIBRARY_PATH"
 
 # Clone the Git repository
-RUN git clone https://github.com/TheSimmer101/wordle /app
+#RUN git clone https://github.com/TheSimmer101/wordle /app
 
+COPY . .
 # Set the working directory
 WORKDIR /app
 

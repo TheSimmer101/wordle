@@ -191,7 +191,8 @@ std::string Wordle::getGuess()
     // }
 
 
-    user_input = getch();
+    guess = "";
+    
     const int BACKSPACE_KEY = 127; // ascii key for delete character
 
     int rows, cols;
@@ -201,6 +202,10 @@ std::string Wordle::getGuess()
     leftmost_x = (cols - dash_length) / 2;
     rightmost_x = leftmost_x + dash_length - 1; // last dash
 
+    while(guess.length() != answer.length())
+    {
+        user_input = getch();
+    
     if (user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
     {
         if (!guess.empty())
@@ -212,7 +217,7 @@ std::string Wordle::getGuess()
             move(currentPos.y, currentPos.x);
         }
     }
-    else if (user_input == KEY_ENTER) // if user presses enter
+    else if (user_input == KEY_ENTER || user_input == '\n') // if user presses enter
     {
         if (currentPos.x == rightmost_x) // current position is on last dash
         {
@@ -236,70 +241,115 @@ std::string Wordle::getGuess()
         }
         move(currentPos.y, currentPos.x);
     }
+    }
     return guess;
 }
 
-void Wordle::play()
+std::string Wordle::getGuess(coordinates startPos)
 {
-    //bool finalGuess = false; // this is the word they want to enter after all inputs
-    for (int i = 0; i < 5; i++)
+    guess = "";
+    const int BACKSPACE_KEY = 127;
+    while(guess.length() < answer.length())
     {
-        // this is to get each char for their word until they get their final answer
-        // to do:
-        // allow them to enter the answer instead of just accepting it at the word length
-        // while (!finalGuess)
-        // {
-            guess = "";
-            getGuess();
-        //     if (guess.length() == answer.length())
-        //     {
-        //         finalGuess = true;
-        //     }
-        // }
-        std::vector<Wordle::colors> c = getColors(guess);
-        move(currentPos.y, leftmost_x);
-        for(int i = 0; i < guess.length(); i++)
+        user_input = getch();
+        if(isalpha(user_input)) //if input is a letter, add uppercase to guess and print the letter
         {
-            if(c[i] == green)
+            user_input = toupper(user_input);
+            guess += toupper(user_input);
+            mvprintw(startPos.y, startPos.x, "%c", user_input);
+            startPos.moveRight();
+            move(startPos.y, startPos.x);
+            // guess += toupper(user_input);
+            // printw("%c",toupper(user_input));
+            // startPos.moveRight();
+        }
+        else if(user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
+        {
+
+            if(!guess.empty())
             {
-                attron(COLOR_PAIR(1));
-                printw("%c",guess[i]);
-                attroff(COLOR_PAIR(1));
-    
+                 guess = guess.substr(0, guess.length() - 1);
+                startPos.moveLeft();
+                move(startPos.y, startPos.x);
+                addch('_'); // replace backspace with dash
+                move(startPos.y, startPos.x);
             }
-                
-        }
-
-        // this is to check if the guess is correct. if it is, exits the loop
-        // if it isn't, it continues the guesses and their guess resets
-        if (guess == answer)
-        {
-            break;
-        }
-        else
-        {
-            //finalGuess = false;
-            guess = "";
-            // to do
-            // start a new line with new dashes
-
-            // currentPos.y += 1;
-
-            // // generate a new line of dashes
-            // char dash[answer.length() * 2 - 1];
-            // for (size_t j = 0; j < answer.length(); ++j)
-            // {
-            //     dash[j * 2] = '_'; // Add dash
-            //     if (j < answer.length() - 1)
-            //     {
-            //         dash[j * 2 + 1] = ' ';
-            //     }
-            // }
-            // mvprintw(currentPos.y, currentPos.x, "%s", dash);
-            // move(currentPos.y, currentPos.x);
-            // refresh();
+           
         }
     }
+
+    while (true) 
+    { 
+        user_input = getch();
+        if (user_input == KEY_ENTER || user_input == '\n') 
+        { 
+            return guess; 
+        }
+    
+}
+}
+void Wordle::play()
+{
+    getGuess(currentPos);
+    // //bool finalGuess = false; // this is the word they want to enter after all inputs
+    // for (int i = 0; i < 5; i++)
+    // {
+    //     // this is to get each char for their word until they get their final answer
+    //     // to do:
+    //     // allow them to enter the answer instead of just accepting it at the word length
+    //     // while (!finalGuess)
+    //     // {
+    //         guess = "";
+    //         getGuess();
+    //     //     if (guess.length() == answer.length())
+    //     //     {
+    //     //         finalGuess = true;
+    //     //     }
+    //     // }
+    //     std::vector<Wordle::colors> c = getColors(guess);
+    //     move(currentPos.y, leftmost_x);
+    //     for(int i = 0; i < guess.length(); i++)
+    //     {
+    //         if(c[i] == green)
+    //         {
+    //             attron(COLOR_PAIR(1));
+    //             printw("%c",guess[i]);
+    //             attroff(COLOR_PAIR(1));
+    
+    //         }
+                
+    //     }
+
+    //     // this is to check if the guess is correct. if it is, exits the loop
+    //     // if it isn't, it continues the guesses and their guess resets
+    //     if (guess == answer)
+    //     {
+    //         break;
+    //     }
+    //     else
+    //     {
+    //         //finalGuess = false;
+    //         guess = "";
+    //         // to do
+    //         // start a new line with new dashes
+
+    //         // currentPos.y += 1;
+
+    //         // // generate a new line of dashes
+    //         // char dash[answer.length() * 2 - 1];
+    //         // for (size_t j = 0; j < answer.length(); ++j)
+    //         // {
+    //         //     dash[j * 2] = '_'; // Add dash
+    //         //     if (j < answer.length() - 1)
+    //         //     {
+    //         //         dash[j * 2 + 1] = ' ';
+    //         //     }
+    //         // }
+    //         // mvprintw(currentPos.y, currentPos.x, "%s", dash);
+    //         // move(currentPos.y, currentPos.x);
+    //         // refresh();
+    //     }
+    // }
 
     //mvprintw(100,100, "%s", "yay you did it!");
 }

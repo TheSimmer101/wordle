@@ -95,6 +95,7 @@ private:
 public:
     Wordle();
     std::string getGuess();
+    std::string getGuess(coordinates startPos);
     void play();
     void print() const;
     bool realWord(const std::string &guess) const; // helper function to check if the word is an actual word in the dictionary

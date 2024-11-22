@@ -17,21 +17,21 @@ using namespace std;
 int main()
 {
 
-  Hunspell hunspell("/usr/share/hunspell/en_US.aff", "/usr/share/hunspell/en_US.dic");
+  // Hunspell hunspell("/usr/share/hunspell/en_US.aff", "/usr/share/hunspell/en_US.dic");
 
-  cout << "Enter a word: "; 
-  string word = "";
-  cin >> word;
-    if (hunspell.spell(word)) 
-        cout << "is correct";
-    else
-      cout << "not correct";
-    cout << endl;
-  // Wordle w;
+  // cout << "Enter a word: "; 
+  // string word = "";
+  // cin >> word;
+  //   if (hunspell.spell(word)) 
+  //       cout << "is correct";
+  //   else
+  //     cout << "not correct";
+  //   cout << endl;
+  Wordle w;
 
-  //  w.play();
-  // w.getGuess();
-  // w.getGuess();
+   w.play();
+  //  w.getGuess();
+  //  w.getGuess();
   // w.getGuess();
   // w.getGuess();
   // w.getGuess();
