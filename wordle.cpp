@@ -96,7 +96,7 @@ Wordle::Wordle()
         exit(1); // exit if failed to open the file
     }
     std::string line = ""; // holding a line from txt file for value
-    int pos = 1;           // holding pos for key
+    int pos = 1; // holding pos for key
     while (getline(infile, line))
     {
         possible_answers[pos] = line;
@@ -115,6 +115,15 @@ Wordle::Wordle()
     int r = rows / 2;
     int dash_length = answer.length() * 2 - 1;
     int c = (cols - dash_length) / 2;
+
+    // instructions for game
+    mvprintw(r - 8, c - 40, "Here's how you play:");
+    mvprintw(r - 7, c - 40, "You have five chances to guess the right word!");
+    mvprintw(r - 6, c - 40, "For each letter in your guess, the color changes depending on how close you are to the answer.");
+    mvprintw(r - 5, c - 40, "If the letter is green: the letter is in the correct spot, well done!");
+    mvprintw(r - 4, c - 40, "If the letter is yellow: the letter is somewhere in the word, but not where you put it");
+    mvprintw(r - 3, c - 40, "If the letter is gray: the letter is not in the word at all, tough");
+    mvprintw(r - 2, c - 40, "Have fun!");
 
     char dash[dash_length + 1];
     for (size_t i = 0; i < answer.length(); ++i)
@@ -136,6 +145,8 @@ Wordle::Wordle()
     currentPos.y = r;
     move(currentPos.y, currentPos.x);
     refresh();
+
+
 }
 void Wordle::print() const
 {
@@ -290,6 +301,7 @@ std::string Wordle::getGuess(coordinates startPos)
 }
 void Wordle::play()
 {
+    // printw("Hello, world!\n");
     getGuess(currentPos);
     // //bool finalGuess = false; // this is the word they want to enter after all inputs
     // for (int i = 0; i < 5; i++)

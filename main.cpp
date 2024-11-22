@@ -28,6 +28,7 @@ int main()
   //     cout << "not correct";
   //   cout << endl;
   Wordle w;
+  //  printw("Hello, world!\n");
 
    w.play();
   //  w.getGuess();
