@@ -112,22 +112,6 @@ Wordle::Wordle()
     int rows, cols;
     getmaxyx(stdscr, rows, cols);
 
-    const char* message = "Loading Wordle...";
-    int message_length = strlen(message);
-    int message_row = rows / 2;
-    int message_col = (cols - message_length) / 2;
-
-    mvprintw(message_row, message_col, "%s", message);
-
-    int dots = 0;
-    for (int i = 0; i < 30; ++i) {
-        refresh();
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
-    }
-
-    clear();
-    // refresh();
-
     int r = rows / 2;
     int dash_length = answer.length() * 2 - 1;
     int c = (cols - dash_length) / 2;
@@ -165,26 +149,6 @@ Wordle::Wordle()
 
 }
 
-// void Wordle::displayLoadingPage() {
-//     int rows, cols;
-//     getmaxyx(stdscr, rows, cols);
-
-//     const char* message = "Loading Wordle...";
-//     int message_length = strlen(message);
-//     int message_row = rows / 2;
-//     int message_col = (cols - message_length) / 2;
-
-//     mvprintw(message_row, message_col, "%s", message);
-
-//     int dots = 0;
-//     for (int i = 0; i < 30; ++i) {
-//         refresh();
-//         std::this_thread::sleep_for(std::chrono::milliseconds(200));
-//     }
-
-//     clear();
-//     refresh();
-// }
 
 void Wordle::print() const
 {
