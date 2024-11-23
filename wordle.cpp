@@ -69,7 +69,7 @@ Wordle::Wordle()
 
     initscr();
     keypad(stdscr, true);
-    // noecho();
+    noecho(); // stop it from showing all characters typed in
 
     int rowMAX, colMAX;
     getmaxyx(stdscr, rowMAX, colMAX);
@@ -78,14 +78,11 @@ Wordle::Wordle()
     leftmost_x = (colMAX - dashes_length) / 2;
     rightmost_x = leftmost_x + dashes_length - 1; // last dash
 
-
     start_color();
     init_pair(1, COLOR_GREEN, COLOR_BLACK); // Pair 1: Green text on black background
-    init_pair(2, COLOR_YELLOW, COLOR_BLACK); 
+    init_pair(2, COLOR_YELLOW, COLOR_BLACK);
     init_pair(3, COLOR_WHITE, COLOR_BLACK);
 
-
-    
     // CREATE POSSIBLE ANSWER HASHMAP
     std::ifstream infile; // creates variable for file to open for reading
     infile.open("wordlist.txt");
@@ -96,7 +93,7 @@ Wordle::Wordle()
         exit(1); // exit if failed to open the file
     }
     std::string line = ""; // holding a line from txt file for value
-    int pos = 1; // holding pos for key
+    int pos = 1;           // holding pos for key
     while (getline(infile, line))
     {
         possible_answers[pos] = line;
@@ -145,17 +142,13 @@ Wordle::Wordle()
     currentPos.y = r;
     move(currentPos.y, currentPos.x);
     refresh();
-
-
 }
-
 
 void Wordle::print() const
 {
 
     refresh();
 }
-
 
 std::string Wordle::getGuess()
 {
@@ -204,9 +197,8 @@ std::string Wordle::getGuess()
     //     move(currentPos.y, currentPos.x);
     // }
 
-
     guess = "";
-    
+
     const int BACKSPACE_KEY = 127; // ascii key for delete character
 
     int rows, cols;
@@ -216,58 +208,60 @@ std::string Wordle::getGuess()
     leftmost_x = (cols - dash_length) / 2;
     rightmost_x = leftmost_x + dash_length - 1; // last dash
 
-    while(guess.length() != answer.length())
+    while (guess.length() != answer.length())
     {
         user_input = getch();
-    
-    if (user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
-    {
-        if (!guess.empty())
-        {
-            guess = guess.substr(0, guess.length() - 1);
-            currentPos.moveLeft();
-            move(currentPos.y, currentPos.x);
-            addch('_'); // replace backspace with dash
-            move(currentPos.y, currentPos.x);
-        }
-    }
-    else if (user_input == KEY_ENTER || user_input == '\n') // if user presses enter
-    {
-        if (currentPos.x == rightmost_x) // current position is on last dash
-        {
-            currentPos.y++;            // moves to next row
-            currentPos.x = leftmost_x; // current position goes to leftmost dash
-            move(currentPos.y, currentPos.x);
-            refresh();
-            return guess;
-        }
-    }
-    else
-    {
-        guess += toupper(user_input);
-        mvprintw(currentPos.y, currentPos.x, "%c", toupper(user_input));
-        currentPos.moveRight();
 
-        if (currentPos.x > rightmost_x)
+        if (user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
         {
-            currentPos.y++;
-            currentPos.x = leftmost_x;
+            if (!guess.empty())
+            {
+                guess = guess.substr(0, guess.length() - 1);
+                currentPos.moveLeft();
+                move(currentPos.y, currentPos.x);
+                addch('_'); // replace backspace with dash
+                move(currentPos.y, currentPos.x);
+            }
         }
-        move(currentPos.y, currentPos.x);
-    }
+        else if (user_input == KEY_ENTER || user_input == '\n') // if user presses enter
+        {
+            if (currentPos.x == rightmost_x) // current position is on last dash
+            {
+                currentPos.y++;            // moves to next row
+                currentPos.x = leftmost_x; // current position goes to leftmost dash
+                move(currentPos.y, currentPos.x);
+                refresh();
+                return guess;
+            }
+        }
+        else
+        {
+            guess += toupper(user_input);
+            mvprintw(currentPos.y, currentPos.x, "%c", toupper(user_input));
+            currentPos.moveRight();
+
+            if (currentPos.x > rightmost_x)
+            {
+                currentPos.y++;
+                currentPos.x = leftmost_x;
+            }
+            move(currentPos.y, currentPos.x);
+        }
     }
     return guess;
 }
 
-
 std::string Wordle::getGuess(coordinates startPos)
 {
+    Hunspell hunspell("/usr/share/hunspell/en_US.aff", "/usr/share/hunspell/en_US.dic");
+    bool finalguess = false;
     guess = "";
+
     const int BACKSPACE_KEY = 127;
-    while(guess.length() < answer.length())
+    while (!finalguess)
     {
         user_input = getch();
-        if(isalpha(user_input) && guess.length() < answer.length()) //if input is a letter, add uppercase to guess and print the letter
+        if (isalpha(user_input) && guess.length() < answer.length()) // if input is a letter, add uppercase to guess and print the letter
         {
             user_input = toupper(user_input);
             guess += toupper(user_input);
@@ -278,53 +272,32 @@ std::string Wordle::getGuess(coordinates startPos)
             // printw("%c",toupper(user_input));
             // startPos.moveRight();
         }
-        else if(user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
+        else if (user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
         {
-
-            if(!guess.empty())
+            if (!guess.empty())
             {
-                 guess = guess.substr(0, guess.length() - 1);
+                guess = guess.substr(0, guess.length() - 1);
                 startPos.moveLeft();
                 move(startPos.y, startPos.x);
                 addch('_'); // replace backspace with dash
                 move(startPos.y, startPos.x);
             }
-           
+        }
+
+        if (guess.length() == answer.length() && user_input == KEY_ENTER || user_input == '\n')
+        {
+            if (!hunspell.spell(guess))
+            {
+                move(startPos.y, startPos.x + 5);
+                printw("%s", "Please enter a valid word!");
+            }
+            else
+            {
+                finalguess = true;
+            }
         }
     }
-
-    Hunspell hunspell("/usr/share/hunspell/en_US.aff", "/usr/share/hunspell/en_US.dic");
-
-  
-    while (true) 
-    { 
-        user_input = getch();
-        if (user_input == KEY_ENTER || user_input == '\n' && hunspell.spell(guess) == true) 
-        { 
-            return guess; 
-        }
-        else if (hunspell.spell(guess) == false)
-        {
-            move(startPos.y, startPos.x+5);
-            printw("%s","Please enter a valid word!");
-            user_input = getch();
-
-            if(user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
-            {
-
-            if(!guess.empty())
-            {
-                 guess = guess.substr(0, guess.length() - 1);
-                startPos.moveLeft();
-                move(startPos.y, startPos.x);
-                addch('_'); // replace backspace with dash
-                move(startPos.y, startPos.x);
-            }
-            }
-
-    
-}
-}
+    return guess;
 }
 
 void Wordle::play()
@@ -355,9 +328,9 @@ void Wordle::play()
     //             attron(COLOR_PAIR(1));
     //             printw("%c",guess[i]);
     //             attroff(COLOR_PAIR(1));
-    
+
     //         }
-                
+
     //     }
 
     //     // this is to check if the guess is correct. if it is, exits the loop
@@ -391,16 +364,42 @@ void Wordle::play()
     //     }
     // }
 
-    //mvprintw(100,100, "%s", "yay you did it!");
+    // mvprintw(100,100, "%s", "yay you did it!");
 }
-
 
 // checks if it's a real word
 bool Wordle::realWord(const std::string &guess) const
 {
-    return false;
-}
+    // Hunspell hunspell("/usr/share/hunspell/en_US.aff", "/usr/share/hunspell/en_US.dic");
 
+    // while (true)
+    // {
+    //     user_input = getch();
+    //     if (user_input == KEY_ENTER || user_input == '\n' && hunspell.spell(guess) == true)
+    //     {
+    //         return guess;
+    //     }
+    //     else if (hunspell.spell(guess) == false)
+    //     {
+    //         move(startPos.y, startPos.x + 5);
+    //         printw("%s", "Please enter a valid word!");
+    //         user_input = getch();
+
+    //         if (user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
+    //         {
+
+    //             if (!guess.empty())
+    //             {
+    //                 guess = guess.substr(0, guess.length() - 1);
+    //                 startPos.moveLeft();
+    //                 move(startPos.y, startPos.x);
+    //                 addch('_'); // replace backspace with dash
+    //                 move(startPos.y, startPos.x);
+    //             }
+    //         }
+    //     }
+    // }
+}
 
 int Wordle::charIndex(const std::string &str, const char &c) const
 {
@@ -411,7 +410,6 @@ int Wordle::charIndex(const std::string &str, const char &c) const
     }
     return -1;
 }
-
 
 int Wordle::countLetters(const std::string &s, const char &c, const int &startIndex) const
 {
@@ -426,7 +424,6 @@ int Wordle::countLetters(const std::string &s, const char &c, const int &startIn
 
     return count;
 }
-
 
 std::vector<Wordle::colors> Wordle::getColors(const std::string guess) const
 {
@@ -447,7 +444,6 @@ std::vector<Wordle::colors> Wordle::getColors(const std::string guess) const
 
     return result;
 }
-
 
 Wordle::~Wordle()
 {

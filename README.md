@@ -26,9 +26,9 @@ Don't have the above resources installed? Don't want to? We got you covered!
 Try Docker! With our dockerfile you don't have to deal with installing these libraries.
 Be sure to clone this git repository first and make it your currently open directory.
 Simply install Docker on your computer and then run the following commands:
-(Docker is only needed to be installed once for every computer)
-docker build -t wordle_repo .
-docker run --name wordle_repo_container -it --rm -v ${PWD}/:/workspace -w /workspace wordle_repo
+(Docker is only needed to be installed once for every computer) <br/>
+docker build -t wordle_repo . <br/>
+docker run --name wordle_repo_container -it --rm -v ${PWD}/:/workspace -w /workspace wordle_repo <br/>
 
 Once your docker container is running, the username in the terminal should change to something like root@123456/workspace# (numbers may vary).
 While docker is running, compile and run the code as usual (make run).
