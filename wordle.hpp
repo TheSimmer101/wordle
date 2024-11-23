@@ -9,7 +9,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-
+#include <hunspell/hunspell.hxx>
 
 // coordinates in ncurses are y, x
 struct coordinates

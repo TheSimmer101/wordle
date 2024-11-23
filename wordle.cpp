@@ -267,7 +267,7 @@ std::string Wordle::getGuess(coordinates startPos)
     while(guess.length() < answer.length())
     {
         user_input = getch();
-        if(isalpha(user_input)) //if input is a letter, add uppercase to guess and print the letter
+        if(isalpha(user_input) && guess.length() < answer.length()) //if input is a letter, add uppercase to guess and print the letter
         {
             user_input = toupper(user_input);
             guess += toupper(user_input);
@@ -293,17 +293,39 @@ std::string Wordle::getGuess(coordinates startPos)
         }
     }
 
+    Hunspell hunspell("/usr/share/hunspell/en_US.aff", "/usr/share/hunspell/en_US.dic");
+
+  
     while (true) 
     { 
         user_input = getch();
-        if (user_input == KEY_ENTER || user_input == '\n') 
+        if (user_input == KEY_ENTER || user_input == '\n' && hunspell.spell(guess) == true) 
         { 
             return guess; 
         }
+        else if (hunspell.spell(guess) == false)
+        {
+            move(startPos.y, startPos.x+5);
+            printw("%s","Please enter a valid word!");
+            user_input = getch();
+
+            if(user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
+            {
+
+            if(!guess.empty())
+            {
+                 guess = guess.substr(0, guess.length() - 1);
+                startPos.moveLeft();
+                move(startPos.y, startPos.x);
+                addch('_'); // replace backspace with dash
+                move(startPos.y, startPos.x);
+            }
+            }
+
     
 }
 }
-
+}
 
 void Wordle::play()
 {
