@@ -17,26 +17,6 @@ using namespace std;
 //i just copy pasted some of his stuff above.
 
 
-// void displayLoadingPage() {
-//     int rows, cols;
-//     getmaxyx(stdscr, rows, cols);
-
-//     const char* message = "Loading Wordle...";
-//     int message_length = strlen(message);
-//     int message_row = rows / 2;
-//     int message_col = (cols - message_length) / 2;
-
-//     mvprintw(message_row, message_col, "%s", message);
-
-//     for (int i = 0; i < 30; i++) {
-//         refresh();
-//         std::this_thread::sleep_for(std::chrono::milliseconds(200));
-//     }
-
-//     clear();
-//     refresh();
-// }
-
 int main()
 {
 
@@ -62,27 +42,26 @@ int main()
   //       wrefresh(windowTest);
   //   }
   
+  // making loading screen
+  // credit: https://stackoverflow.com/questions/67514610/how-do-i-make-a-welcome-screen-using-ncurses-that-leads-into-my-code
   initscr();
   cbreak();
-  refresh(); 
-  WINDOW* windowTest = newwin(1, 23, 3, 0);
-  wprintw(windowTest, "Hello World");  
+  refresh();  
+  WINDOW* windowTest = newwin(30, 100, 6, 60);
+  int text_startx = (60 - strlen("hello world")) / 2; // put some text to help with centering
+
+  mvwprintw(windowTest, 1, text_startx, "Welcome!");
+  mvwprintw(windowTest, 3, text_startx - 4, "Loading wordle..."); 
   wrefresh(windowTest);
-  std::this_thread::sleep_for(std::chrono::seconds(2));
+  std::this_thread::sleep_for(std::chrono::seconds(4));
   werase(windowTest);
   wrefresh(windowTest);
-  
-  
-  
-  
-  // displayLoadingPage();
+   
   Wordle w;
-//   //  printw("Hello, world!\n");
-// displayLoadingPage();
-   w.play();
-   delwin(windowTest);
-   clear();
-    endwin();
+  w.play();
+  delwin(windowTest);
+  clear();
+  endwin();
   //   // endwin();
   //   // clear();
   //   refresh();

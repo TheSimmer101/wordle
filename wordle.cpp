@@ -156,6 +156,7 @@ void Wordle::print() const
     refresh();
 }
 
+
 std::string Wordle::getGuess()
 {
 
@@ -258,6 +259,7 @@ std::string Wordle::getGuess()
     return guess;
 }
 
+
 std::string Wordle::getGuess(coordinates startPos)
 {
     guess = "";
@@ -301,6 +303,8 @@ std::string Wordle::getGuess(coordinates startPos)
     
 }
 }
+
+
 void Wordle::play()
 {
     // printw("Hello, world!\n");
@@ -368,11 +372,13 @@ void Wordle::play()
     //mvprintw(100,100, "%s", "yay you did it!");
 }
 
+
 // checks if it's a real word
 bool Wordle::realWord(const std::string &guess) const
 {
     return false;
 }
+
 
 int Wordle::charIndex(const std::string &str, const char &c) const
 {
@@ -383,6 +389,8 @@ int Wordle::charIndex(const std::string &str, const char &c) const
     }
     return -1;
 }
+
+
 int Wordle::countLetters(const std::string &s, const char &c, const int &startIndex) const
 {
     int count = 0;
@@ -396,6 +404,7 @@ int Wordle::countLetters(const std::string &s, const char &c, const int &startIn
 
     return count;
 }
+
 
 std::vector<Wordle::colors> Wordle::getColors(const std::string guess) const
 {
@@ -416,6 +425,7 @@ std::vector<Wordle::colors> Wordle::getColors(const std::string guess) const
 
     return result;
 }
+
 
 Wordle::~Wordle()
 {
