@@ -284,7 +284,7 @@ std::string Wordle::getGuess(coordinates startPos)
             }
         }
 
-        if (guess.length() == answer.length() && user_input == KEY_ENTER || user_input == '\n')
+        if ((guess.length() == answer.length()) && (user_input == KEY_ENTER || user_input == '\n'))
         {
             if (!hunspell.spell(guess))
             {
@@ -303,7 +303,28 @@ std::string Wordle::getGuess(coordinates startPos)
 void Wordle::play()
 {
     // printw("Hello, world!\n");
-    getGuess(currentPos);
+    int rows, cols;
+    getmaxyx(stdscr, rows, cols);
+
+    int r = rows / 2;
+    int dash_length = answer.length() * 2 - 1;
+    int c = (cols - dash_length) / 2;
+
+    for (int i = 1; i <= 5; i++)
+    {
+        guess = getGuess(currentPos);
+        if (guess == answer)
+        {
+            i = 6;
+        }
+        else
+        {
+            currentPos.x = c;
+            currentPos.y = r + i;
+            move(currentPos.y, currentPos.x);
+        }
+    }
+    endwin();
     // //bool finalGuess = false; // this is the word they want to enter after all inputs
     // for (int i = 0; i < 5; i++)
     // {
