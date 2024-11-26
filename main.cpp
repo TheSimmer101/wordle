@@ -1,8 +1,8 @@
 #include <iostream>
 #include "wordle.hpp"
 #include <hunspell/hunspell.hxx>
-#include <thread>
-#include <chrono> 
+// #include <thread>
+// #include <chrono> 
 using namespace std;
 
 
@@ -60,6 +60,7 @@ int main()
   // delwin(windowTest);
    
   Wordle w;
+  w.loadScreen();
   w.play();
   // delwin(windowTest);
   // clear();

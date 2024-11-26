@@ -10,6 +10,8 @@
 #include <fstream>
 #include <sstream>
 #include <hunspell/hunspell.hxx>
+#include <thread>
+#include <chrono> 
 
 // coordinates in ncurses are y, x
 struct coordinates
@@ -100,6 +102,7 @@ public:
     void play();
     void print() const;
     bool realWord(const std::string &guess) const; // helper function to check if the word is an actual word in the dictionary
+    void loadScreen();
 
     ~Wordle();
 };

@@ -113,30 +113,30 @@ Wordle::Wordle()
     int dash_length = answer.length() * 2 - 1;
     int c = (cols - dash_length) / 2;
 
-    // instructions for game
-    mvprintw(r - 8, c - 40, "Here's how you play:");
-    mvprintw(r - 7, c - 40, "You have five chances to guess the right word!");
-    mvprintw(r - 6, c - 40, "For each letter in your guess, the color changes depending on how close you are to the answer.");
-    mvprintw(r - 5, c - 40, "If the letter is green: the letter is in the correct spot, well done!");
-    mvprintw(r - 4, c - 40, "If the letter is yellow: the letter is somewhere in the word, but not where you put it");
-    mvprintw(r - 3, c - 40, "If the letter is gray: the letter is not in the word at all, tough");
-    mvprintw(r - 2, c - 40, "Have fun!");
+    // // instructions for game
+    // mvprintw(r - 8, c - 40, "Here's how you play:");
+    // mvprintw(r - 7, c - 40, "You have five chances to guess the right word!");
+    // mvprintw(r - 6, c - 40, "For each letter in your guess, the color changes depending on how close you are to the answer.");
+    // mvprintw(r - 5, c - 40, "If the letter is green: the letter is in the correct spot, well done!");
+    // mvprintw(r - 4, c - 40, "If the letter is yellow: the letter is somewhere in the word, but not where you put it");
+    // mvprintw(r - 3, c - 40, "If the letter is gray: the letter is not in the word at all, tough");
+    // mvprintw(r - 2, c - 40, "Have fun!");
 
-    char dash[dash_length + 1];
-    for (size_t i = 0; i < answer.length(); ++i)
-    {
-        dash[i * 2] = '_';
-        if (i < answer.length() - 1)
-        {
-            dash[i * 2 + 1] = ' ';
-        }
-    }
-    dash[dash_length] = '\0';
+    // char dash[dash_length + 1];
+    // for (size_t i = 0; i < answer.length(); ++i)
+    // {
+    //     dash[i * 2] = '_';
+    //     if (i < answer.length() - 1)
+    //     {
+    //         dash[i * 2 + 1] = ' ';
+    //     }
+    // }
+    // dash[dash_length] = '\0';
 
-    for (int i = 0; i < 5; ++i)
-    {
-        mvprintw(r + i, c, "%s", dash);
-    }
+    // for (int i = 0; i < 5; ++i)
+    // {
+    //     mvprintw(r + i, c, "%s", dash);
+    // }
 
     currentPos.x = c;
     currentPos.y = r;
@@ -310,6 +310,38 @@ void Wordle::play()
     int dash_length = answer.length() * 2 - 1;
     int c = (cols - dash_length) / 2;
 
+    // instructions for game
+    mvprintw(r - 8, c - 40, "Here's how you play:");
+    mvprintw(r - 7, c - 40, "You have five chances to guess the right word!");
+    mvprintw(r - 6, c - 40, "For each letter in your guess, the color changes depending on how close you are to the answer.");
+    mvprintw(r - 5, c - 40, "If the letter is green: the letter is in the correct spot, well done!");
+    mvprintw(r - 4, c - 40, "If the letter is yellow: the letter is somewhere in the word, but not where you put it");
+    mvprintw(r - 3, c - 40, "If the letter is gray: the letter is not in the word at all, tough");
+    mvprintw(r - 2, c - 40, "Have fun!");
+
+    char dash[dash_length + 1];
+    for (size_t i = 0; i < answer.length(); ++i)
+    {
+        dash[i * 2] = '_';
+        if (i < answer.length() - 1)
+        {
+            dash[i * 2 + 1] = ' ';
+        }
+    }
+    dash[dash_length] = '\0';
+
+    for (int i = 0; i < 5; ++i)
+    {
+        mvprintw(r + i, c, "%s", dash);
+    }
+
+    currentPos.x = c;
+    currentPos.y = r;
+    move(currentPos.y, currentPos.x);
+    refresh();
+    
+    
+    
     for (int i = 1; i <= 5; i++)
     {
         guess = getGuess(currentPos);
@@ -386,6 +418,24 @@ void Wordle::play()
     // }
 
     // mvprintw(100,100, "%s", "yay you did it!");
+}
+
+void Wordle::loadScreen() {
+    // credit: https://stackoverflow.com/questions/67514610/how-do-i-make-a-welcome-screen-using-ncurses-that-leads-into-my-code
+    initscr();
+    cbreak();
+    refresh();  
+    WINDOW* windowTest = newwin(30, 100, 6, 60);
+    int text_startx = (60 - strlen("hello world")) / 2; // put some text to help with centering
+
+    mvwprintw(windowTest, 1, text_startx, "Welcome!");
+    mvwprintw(windowTest, 3, text_startx - 4, "Loading wordle..."); 
+    wrefresh(windowTest);
+    std::this_thread::sleep_for(std::chrono::seconds(4));
+    werase(windowTest);
+    wrefresh(windowTest);
+
+    delwin(windowTest);
 }
 
 // checks if it's a real word
