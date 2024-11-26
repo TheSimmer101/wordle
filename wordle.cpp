@@ -311,13 +311,13 @@ void Wordle::play()
     int c = (cols - dash_length) / 2;
 
     // instructions for game
-    mvprintw(r - 8, c - 40, "Here's how you play:");
-    mvprintw(r - 7, c - 40, "You have five chances to guess the right word!");
-    mvprintw(r - 6, c - 40, "For each letter in your guess, the color changes depending on how close you are to the answer.");
-    mvprintw(r - 5, c - 40, "If the letter is green: the letter is in the correct spot, well done!");
-    mvprintw(r - 4, c - 40, "If the letter is yellow: the letter is somewhere in the word, but not where you put it");
-    mvprintw(r - 3, c - 40, "If the letter is gray: the letter is not in the word at all, tough");
-    mvprintw(r - 2, c - 40, "Have fun!");
+    // mvprintw(r - 8, c - 40, "Here's how you play:");
+    // mvprintw(r - 7, c - 40, "You have five chances to guess the right word!");
+    // mvprintw(r - 6, c - 40, "For each letter in your guess, the color changes depending on how close you are to the answer.");
+    // mvprintw(r - 5, c - 40, "If the letter is green: the letter is in the correct spot, well done!");
+    // mvprintw(r - 4, c - 40, "If the letter is yellow: the letter is somewhere in the word, but not where you put it");
+    // mvprintw(r - 3, c - 40, "If the letter is gray: the letter is not in the word at all, tough");
+    // mvprintw(r - 2, c - 40, "Have fun!");
 
     char dash[dash_length + 1];
     for (size_t i = 0; i < answer.length(); ++i)
@@ -340,23 +340,82 @@ void Wordle::play()
     move(currentPos.y, currentPos.x);
     refresh();
     
+    coordinates currentCopy;
     
+            // for(int colorIndex = 0; colorIndex < guess.length(); colorIndex++)
+            // {
+            //     if(c[colorIndex] == green)
+            //     {
+            //         attron(COLOR_PAIR(1));
+            //         printw("%s",guess[colorIndex] + " ");
+            //         attroff(COLOR_PAIR(1));
+        
+            //     }
+            //     else if(c[colorIndex] == yellow)
+            //     {
+            //         attron(COLOR_PAIR(2));
+            //         printw("%s",guess[colorIndex] + " ");
+            //         attroff(COLOR_PAIR(2));
+            //     }
+            //     else if(c[colorIndex] == white)
+            //     {
+            //         attron(COLOR_PAIR(3));
+            //         printw("%s",guess[colorIndex] + " ");
+            //         attroff(COLOR_PAIR(3));
+            //     }
     
     for (int i = 1; i <= 5; i++)
     {
-        guess = getGuess(currentPos);
+        currentCopy.y = currentPos.y;
+        currentCopy.x = currentPos.x;
+        guess = getGuess(currentCopy);
+        std::vector<colors> colorsVec = getColors(guess);
         if (guess == answer)
-        {
+        { //code to print guess in green
+            currentPos.x = leftmost_x;
+            //currentPos.y = r + i;
+            attron(COLOR_PAIR(1));
+            for(char letter: guess)
+            {
+                printw("%s",letter + " ");
+                move(currentPos.y,currentPos.x+1);
+            }
+            attroff(COLOR_PAIR(1));
+            
             i = 6;
+            currentPos.x = c;
+            currentPos.y = r + i;
         }
         else
         {
+            for(int colorIndex = 0; colorIndex < guess.length(); colorIndex++)
+            {
+                if(colorsVec[colorIndex] == green)
+                {
+                    attron(COLOR_PAIR(1));
+                    printw("%s",guess[colorIndex] + " ");
+                    attroff(COLOR_PAIR(1));
+        
+                }
+                else if(colorsVec[colorIndex] == yellow)
+                {
+                    attron(COLOR_PAIR(2));
+                    printw("%s",guess[colorIndex] + " ");
+                    attroff(COLOR_PAIR(2));
+                }
+                else if(colorsVec[colorIndex] == white)
+                {
+                    attron(COLOR_PAIR(3));
+                    printw("%s",guess[colorIndex] + " ");
+                    attroff(COLOR_PAIR(3));
+                }
             currentPos.x = c;
             currentPos.y = r + i;
             move(currentPos.y, currentPos.x);
         }
     }
-    endwin();
+    }
+   // endwin();
     // //bool finalGuess = false; // this is the word they want to enter after all inputs
     // for (int i = 0; i < 5; i++)
     // {

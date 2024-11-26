@@ -60,7 +60,7 @@ int main()
 //   // w.getGuess();
 //   // // w.print();
 
-//   // getch();
+getch();
   return 0;
 
 
