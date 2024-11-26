@@ -428,13 +428,28 @@ void Wordle::loadScreen() {
     WINDOW* windowTest = newwin(30, 100, 6, 60);
     int text_startx = (60 - strlen("hello world")) / 2; // put some text to help with centering
 
+    // loading dots
     mvwprintw(windowTest, 1, text_startx, "Welcome!");
     mvwprintw(windowTest, 3, text_startx - 4, "Loading wordle..."); 
-    wrefresh(windowTest);
-    std::this_thread::sleep_for(std::chrono::seconds(4));
-    werase(windowTest);
+
+
+    // loading bar
+    int bar_width = 30;
+    int bar_startx = (80 - bar_width) / 4;
+    int bar_y = 5;
+
+    mvwprintw(windowTest, bar_y, bar_startx, "[%s]", std::string(bar_width, ' ').c_str());
     wrefresh(windowTest);
 
+   
+    for (int i = 0; i <= bar_width; i++) {
+        mvwaddch(windowTest, bar_y, bar_startx + 1 + i, '=');
+        wrefresh(windowTest);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    werase(windowTest);
+    wrefresh(windowTest);
     delwin(windowTest);
 }
 

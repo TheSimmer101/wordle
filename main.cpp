@@ -42,22 +42,7 @@ int main()
   //       wrefresh(windowTest);
   //   }
   
-  // making loading screen
-  // credit: https://stackoverflow.com/questions/67514610/how-do-i-make-a-welcome-screen-using-ncurses-that-leads-into-my-code
-  // initscr();
-  // cbreak();
-  // refresh();  
-  // WINDOW* windowTest = newwin(30, 100, 6, 60);
-  // int text_startx = (60 - strlen("hello world")) / 2; // put some text to help with centering
-
-  // mvwprintw(windowTest, 1, text_startx, "Welcome!");
-  // mvwprintw(windowTest, 3, text_startx - 4, "Loading wordle..."); 
-  // wrefresh(windowTest);
-  // std::this_thread::sleep_for(std::chrono::seconds(4));
-  // werase(windowTest);
-  // wrefresh(windowTest);
-
-  // delwin(windowTest);
+  
    
   Wordle w;
   w.loadScreen();
