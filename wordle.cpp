@@ -89,7 +89,7 @@ Wordle::Wordle()
 
     if (infile.fail())
     {
-        std::cerr << "File cannot be opened for reading.";
+        // std::cerr << "File cannot be opened for reading.";
         exit(1); // exit if failed to open the file
     }
     std::string line = ""; // holding a line from txt file for value
@@ -339,158 +339,219 @@ void Wordle::play()
     currentPos.y = r;
     move(currentPos.y, currentPos.x);
     refresh();
-    
-    coordinates currentCopy;
-    
-            // for(int colorIndex = 0; colorIndex < guess.length(); colorIndex++)
-            // {
-            //     if(c[colorIndex] == green)
-            //     {
-            //         attron(COLOR_PAIR(1));
-            //         printw("%s",guess[colorIndex] + " ");
-            //         attroff(COLOR_PAIR(1));
-        
-            //     }
-            //     else if(c[colorIndex] == yellow)
-            //     {
-            //         attron(COLOR_PAIR(2));
-            //         printw("%s",guess[colorIndex] + " ");
-            //         attroff(COLOR_PAIR(2));
-            //     }
-            //     else if(c[colorIndex] == white)
-            //     {
-            //         attron(COLOR_PAIR(3));
-            //         printw("%s",guess[colorIndex] + " ");
-            //         attroff(COLOR_PAIR(3));
-            //     }
-    
+
+    coordinates currentCopy; // I didn't use this
+
     for (int i = 1; i <= 5; i++)
     {
-        currentCopy.y = currentPos.y;
-        currentCopy.x = currentPos.x;
-        guess = getGuess(currentCopy);
-        std::vector<colors> colorsVec = getColors(guess);
+        guess = getGuess(currentPos);
+        std::vector<Wordle::colors> colorVec = getColors(guess);
+        move(currentPos.y, leftmost_x);
         if (guess == answer)
-        { //code to print guess in green
-            currentPos.x = leftmost_x;
-            //currentPos.y = r + i;
-            attron(COLOR_PAIR(1));
-            for(char letter: guess)
+        {
+            for (int i = 0; i < guess.length(); i++)
             {
-                printw("%s",letter + " ");
-                move(currentPos.y,currentPos.x+1);
+                attron(COLOR_PAIR(1));
+                mvprintw(currentPos.y, currentPos.x, "%c", guess[i]);
+                currentPos.moveRight();
+                move(currentPos.y, currentPos.x);
+                attroff(COLOR_PAIR(1));
             }
-            attroff(COLOR_PAIR(1));
-            
             i = 6;
-            currentPos.x = c;
-            currentPos.y = r + i;
         }
         else
         {
-            for(int colorIndex = 0; colorIndex < guess.length(); colorIndex++)
+            for (int colorIndex = 0; colorIndex < guess.length(); colorIndex++)
             {
-                if(colorsVec[colorIndex] == green)
+                if (colorVec[colorIndex] == green)
                 {
                     attron(COLOR_PAIR(1));
-                    printw("%s",guess[colorIndex] + " ");
+                    mvprintw(currentPos.y, currentPos.x, "%c", guess[colorIndex]);
+                    currentPos.moveRight();
+                    move(currentPos.y, currentPos.x);
                     attroff(COLOR_PAIR(1));
-        
                 }
-                else if(colorsVec[colorIndex] == yellow)
+                else if (colorVec[colorIndex] == yellow)
                 {
                     attron(COLOR_PAIR(2));
-                    printw("%s",guess[colorIndex] + " ");
+                    mvprintw(currentPos.y, currentPos.x, "%c", guess[colorIndex]);
+                    currentPos.moveRight();
+                    move(currentPos.y, currentPos.x);
                     attroff(COLOR_PAIR(2));
                 }
-                else if(colorsVec[colorIndex] == white)
+                else if (colorVec[colorIndex] == white)
                 {
                     attron(COLOR_PAIR(3));
-                    printw("%s",guess[colorIndex] + " ");
+                    mvprintw(currentPos.y, currentPos.x, "%c", guess[colorIndex]);
+                    currentPos.moveRight();
+                    move(currentPos.y, currentPos.x);
                     attroff(COLOR_PAIR(3));
                 }
+            }
             currentPos.x = c;
             currentPos.y = r + i;
             move(currentPos.y, currentPos.x);
         }
     }
-    }
-   // endwin();
-    // //bool finalGuess = false; // this is the word they want to enter after all inputs
-    // for (int i = 0; i < 5; i++)
+
+    // // for(int colorIndex = 0; colorIndex < guess.length(); colorIndex++)
+    // // {
+    // //     if(c[colorIndex] == green)
+    // //     {
+    // //         attron(COLOR_PAIR(1));
+    // //         printw("%s",guess[colorIndex] + " ");
+    // //         attroff(COLOR_PAIR(1));
+
+    // //     }
+    // //     else if(c[colorIndex] == yellow)
+    // //     {
+    // //         attron(COLOR_PAIR(2));
+    // //         printw("%s",guess[colorIndex] + " ");
+    // //         attroff(COLOR_PAIR(2));
+    // //     }
+    // //     else if(c[colorIndex] == white)
+    // //     {
+    // //         attron(COLOR_PAIR(3));
+    // //         printw("%s",guess[colorIndex] + " ");
+    // //         attroff(COLOR_PAIR(3));
+    // //     }
+
+    // for (int i = 1; i <= 5; i++)
     // {
-    //     // this is to get each char for their word until they get their final answer
-    //     // to do:
-    //     // allow them to enter the answer instead of just accepting it at the word length
-    //     // while (!finalGuess)
+    //     currentCopy.y = currentPos.y;
+    //     currentCopy.x = currentPos.x;
+    //     guess = getGuess(currentCopy);
+
+    //     // std::vector<Wordle::colors> c = getColors(guess);
+    //     // move(currentPos.y, leftmost_x);
+    //     // for (int i = 0; i < guess.length(); i++)
     //     // {
-    //         guess = "";
-    //         getGuess();
-    //     //     if (guess.length() == answer.length())
+    //     //     if (c[i] == green)
     //     //     {
-    //     //         finalGuess = true;
+    //     //         attron(COLOR_PAIR(1));
+    //     //         printw("%c", guess[i]);
+    //     //         attroff(COLOR_PAIR(1));
     //     //     }
     //     // }
-    //     std::vector<Wordle::colors> c = getColors(guess);
-    //     move(currentPos.y, leftmost_x);
-    //     for(int i = 0; i < guess.length(); i++)
-    //     {
-    //         if(c[i] == green)
+    //     std::vector<Wordle::colors> colorsVec = getColors(guess);
+    //     if (guess == answer)
+    //     { // code to print guess in green
+    //         currentPos.x = leftmost_x;
+    //         // currentPos.y = r + i;
+
+    //         for (int i = 0; i < guess.length(); i++)
     //         {
     //             attron(COLOR_PAIR(1));
-    //             printw("%c",guess[i]);
+    //             printw("%s", guess[i] + " ");
+    //             move(currentPos.y, currentPos.x + 1);
     //             attroff(COLOR_PAIR(1));
-
     //         }
 
-    //     }
-
-    //     // this is to check if the guess is correct. if it is, exits the loop
-    //     // if it isn't, it continues the guesses and their guess resets
-    //     if (guess == answer)
-    //     {
-    //         break;
+    //         i = 6;
+    //         currentPos.x = c;
+    //         currentPos.y = r + i;
     //     }
     //     else
     //     {
-    //         //finalGuess = false;
-    //         guess = "";
-    //         // to do
-    //         // start a new line with new dashes
-
-    //         // currentPos.y += 1;
-
-    //         // // generate a new line of dashes
-    //         // char dash[answer.length() * 2 - 1];
-    //         // for (size_t j = 0; j < answer.length(); ++j)
-    //         // {
-    //         //     dash[j * 2] = '_'; // Add dash
-    //         //     if (j < answer.length() - 1)
-    //         //     {
-    //         //         dash[j * 2 + 1] = ' ';
-    //         //     }
-    //         // }
-    //         // mvprintw(currentPos.y, currentPos.x, "%s", dash);
-    //         // move(currentPos.y, currentPos.x);
-    //         // refresh();
+    //         for (int colorIndex = 0; colorIndex < guess.length(); colorIndex++)
+    //         {
+    //             if (colorsVec[colorIndex] == green)
+    //             {
+    //                 attron(COLOR_PAIR(1));
+    //                 printw("%s", guess[colorIndex] + " ");
+    //                 attroff(COLOR_PAIR(1));
+    //             }
+    //             else if (colorsVec[colorIndex] == yellow)
+    //             {
+    //                 attron(COLOR_PAIR(2));
+    //                 printw("%s", guess[colorIndex] + " ");
+    //                 attroff(COLOR_PAIR(2));
+    //             }
+    //             else if (colorsVec[colorIndex] == white)
+    //             {
+    //                 attron(COLOR_PAIR(3));
+    //                 printw("%s", guess[colorIndex] + " ");
+    //                 attroff(COLOR_PAIR(3));
+    //             }
+    //             currentPos.x = c;
+    //             currentPos.y = r + i;
+    //             move(currentPos.y, currentPos.x);
+    //         }
     //     }
     // }
+    // // endwin();
+    // // bool finalGuess = false; // this is the word they want to enter after all inputs
+    // // for (int i = 0; i < 5; i++)
+    // // {
+    // //     // this is to get each char for their word until they get their final answer
+    // //     // to do:
+    // //     // allow them to enter the answer instead of just accepting it at the word length
+    // //     // while (!finalGuess)
+    // //     // {
+    // //     guess = getGuess(currentCopy);
+    // //     //     if (guess.length() == answer.length())
+    // //     //     {
+    // //     //         finalGuess = true;
+    // //     //     }
+    // //     // }
+    // //     std::vector<Wordle::colors> c = getColors(guess);
+    // //     move(currentPos.y, leftmost_x);
+    // //     for (int i = 0; i < guess.length(); i++)
+    // //     {
+    // //         if (c[i] == green)
+    // //         {
+    // //             attron(COLOR_PAIR(1));
+    // //             printw("%c", guess[i]);
+    // //             attroff(COLOR_PAIR(1));
+    // //         }
+    // //     }
 
-    // mvprintw(100,100, "%s", "yay you did it!");
+    // //     // this is to check if the guess is correct. if it is, exits the loop
+    // //     // if it isn't, it continues the guesses and their guess resets
+    // //     if (guess == answer)
+    // //     {
+    // //         break;
+    // //     }
+    // //     else
+    // //     {
+    // //         // finalGuess = false;
+    // //         guess = "";
+    // //         // to do
+    // //         // start a new line with new dashes
+
+    // //         // currentPos.y += 1;
+
+    // //         // // generate a new line of dashes
+    // //         // char dash[answer.length() * 2 - 1];
+    // //         // for (size_t j = 0; j < answer.length(); ++j)
+    // //         // {
+    // //         //     dash[j * 2] = '_'; // Add dash
+    // //         //     if (j < answer.length() - 1)
+    // //         //     {
+    // //         //         dash[j * 2 + 1] = ' ';
+    // //         //     }
+    // //         // }
+    // //         // mvprintw(currentPos.y, currentPos.x, "%s", dash);
+    // //         // move(currentPos.y, currentPos.x);
+    // //         // refresh();
+    // //     }
+    // // }
+
+    // // mvprintw(100, 100, "%s", "yay you did it!");
 }
 
-void Wordle::loadScreen() {
+void Wordle::loadScreen()
+{
     // credit: https://stackoverflow.com/questions/67514610/how-do-i-make-a-welcome-screen-using-ncurses-that-leads-into-my-code
     initscr();
     cbreak();
-    refresh();  
-    WINDOW* windowTest = newwin(30, 100, 6, 60);
+    refresh();
+    WINDOW *windowTest = newwin(30, 100, 6, 60);
     int text_startx = (60 - strlen("hello world")) / 2; // put some text to help with centering
 
     // loading dots
     mvwprintw(windowTest, 1, text_startx, "Welcome!");
-    mvwprintw(windowTest, 3, text_startx - 4, "Loading wordle..."); 
-
+    mvwprintw(windowTest, 3, text_startx - 4, "Loading wordle...");
 
     // loading bar
     int bar_width = 30;
@@ -500,8 +561,8 @@ void Wordle::loadScreen() {
     mvwprintw(windowTest, bar_y, bar_startx, "[%s]", std::string(bar_width, ' ').c_str());
     wrefresh(windowTest);
 
-   
-    for (int i = 0; i <= bar_width; i++) {
+    for (int i = 0; i < bar_width; i++)
+    {
         mvwaddch(windowTest, bar_y, bar_startx + 1 + i, '=');
         wrefresh(windowTest);
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -570,7 +631,7 @@ int Wordle::countLetters(const std::string &s, const char &c, const int &startIn
     return count;
 }
 
-std::vector<Wordle::colors> Wordle::getColors(const std::string guess) const
+std::vector<Wordle::colors> Wordle::getColors(const std::string &guess) const
 {
     std::vector<Wordle::colors> result = {};
 
