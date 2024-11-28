@@ -104,7 +104,8 @@ Wordle::Wordle()
     // generate random position
     srand(time(0));
     int randomPos = 1 + rand() % 106;
-    answer = possible_answers[1];
+    answer = "JOLLY";
+   // answer = possible_answers[1];
     attempts = 0;
 
     int rows, cols;
@@ -636,9 +637,9 @@ bool Wordle::realWord(const std::string &guess) const
     // }
 }
 
-int Wordle::charIndex(const std::string &str, const char &c) const
+int Wordle::charIndex(const std::string &str, const char &c,const int &startIndex) const
 {
-    for (int i = 0; i < str.length(); i++)
+    for (int i = startIndex; i < str.length(); i++)
     {
         if (str[i] == c)
             return i;
@@ -662,21 +663,57 @@ int Wordle::countLetters(const std::string &s, const char &c, const int &startIn
 
 std::vector<Wordle::colors> Wordle::getColors(const std::string &guess) const
 {
-    std::vector<Wordle::colors> result = {};
+    //list the quantity of each letter present in answer and guess, (e.g. candy has 1 c, 1 a, 1 n, etc.)
+    std::unordered_map<char, int> answerLettersCount;
+    std::unordered_map<char, int> guessLettersCount;
 
+    for(int x = 0; x < guess.length();x++)
+    {
+        answerLettersCount[answer[x]]++;
+        guessLettersCount[guess[x]]++;
+    }
+    std::vector<Wordle::colors> result(guess.length(),white); //declares vector of size guessLength and fills it with white
+
+//TESTING
+// answer: JOLLY  (2 L's), this is already set in constructor rn
+// guess: LOLLY   (3 L's)
+// colors should be: 1st L is WHITE, everything else GREEN
+//problem: 1st L is yellow, which is wrong. (OLLY is green, which is good!)
+//yellow implies you can move that letter somewhere else to get answer, but yellow L then all green OLLY contradicts that idea.
+//only the 1st letter is wrong, but you can't move it to another position since we know OLLY is the fully correct part
+
+
+
+//if letter is in the right spot mark it green, and decrement that letter count in guess map
+// green letters have priority
     for (int k = 0; k < guess.length(); k++)
     {
-        char letter = guess[k];
-        if (countLetters(answer, letter, 0) == 0) // letter not in string at all
-            result.push_back(white);
-        else if (charIndex(answer, letter) != k) // might need to modify case for yellow, for example answer = "jolly", and guess = "local", both l's would need to be yellow
+        if(guess[k] == answer[k])
         {
-            result.push_back(yellow);
+            result[k] = green;
+            guessLettersCount[guess[k]]--;
         }
-        else if (charIndex(answer, letter) == k)
-            result.push_back(green);
+            
+        
+        // might need to modify case for yellow, for example answer = "jolly", and guess = "local", both l's would need to be yellow
+          
+                
+        
+        // else if (charIndex(answer, letter) == k)
+        //     result.push_back(green);
     }
 
+    for (int j = 0; j < guess.length(); j++)
+    {
+        //letter not in right position and quantity of letter in guess is less than its quantity in answer
+        if (guess[j] != answer[j] && guessLettersCount[guess[j]]!= 0 && guessLettersCount[guess[j]] <= answerLettersCount[guess[j]]) 
+            {
+                
+                result[j] = yellow;
+                guessLettersCount[guess[j]]--;
+            }
+    }
+    
     return result;
 }
 

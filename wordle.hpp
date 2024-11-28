@@ -91,9 +91,9 @@ private:
         yellow,
         white
     };
-    std::vector<colors> getColors(const std::string &guess) const; // returns a vector that shows color for each letter in user guess, for example if guess == answer then vector should be {green, green, green..}
+    std::vector<Wordle::colors> getColors(const std::string &guess) const; // returns a vector that shows color for each letter in user guess, for example if guess == answer then vector should be {green, green, green..}
     int countLetters(const std::string &s, const char &c, const int &startIndex) const;
-    int charIndex(const std::string &str, const char &c) const; // returns the 1st index that char c appears in string. -1 if letter doesn't appear
+    int charIndex(const std::string &str, const char &c,const int &startIndex) const; // returns the 1st index that char c appears in string. -1 if letter doesn't appear
 
 public:
     Wordle();
