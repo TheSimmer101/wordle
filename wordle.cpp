@@ -542,25 +542,40 @@ void Wordle::play()
     // // mvprintw(100, 100, "%s", "yay you did it!");
 }
 
-void Wordle::displayAsciiArt(WINDOW *win) {
-    const char* ascii_art[] = {
-        "   .-.                                                   \\ /",
-        "  ( (                                |                  - * -",
-        "   '-`                              -+-                  / \\",
-        "            \\            o          _|_          \\",
-        "            ))          }^{        /___\\         ))",
-        "          .-#-----.     /|\\     .---'-'---.    .-#-----.",
-        "     ___ /_________\\   //|\\\\   /___________\\  /_________\\",
-        "    /___\\ |[] _ []|    //|\\\\    | A /^\ A |    |[] _ []| _.O,_",
-        "....|\"#\"|.|  |*|  |...///|\\\\\\...|   |\"|   |....|  |*|  |..(^)....",
-        nullptr
-    };
+void Wordle::displayAsciiArt(WINDOW *win, const char* ascii_art[], int start_y = 9) {
+    // const char* ascii_art_1[] = {
+    //     "   .-.                                                   \\ /",
+    //     "  ( (                                |                  - * -",
+    //     "   '-`                              -+-                  / \\",
+    //     "            \\            o          _|_          \\",
+    //     "            ))          }^{        /___\\         ))",
+    //     "          .-#-----.     /|\\     .---'-'---.    .-#-----.",
+    //     "     ___ /_________\\   //|\\\\   /___________\\  /_________\\",
+    //     "    /___\\ |[] _ []|    //|\\\\    | A /^\ A |    |[] _ []| _.O,_",
+    //     "....|\"#\"|.|  |*|  |...///|\\\\\\...|   |\"|   |....|  |*|  |..(^)....",
+    //     nullptr
+    // };
+
+    // const char* ascii_art_2[] = {
+    //     "     __",
+    //     "   _|==|_  ",
+    //     "    ('')___/",
+    //     ">--(`^^')",
+    //     "  (`^'^'`)",
+    //     "  `======'",
+    //     nullptr
+    // };
 
     // prints ascii art
-    int y = 9; 
+    int y = start_y; 
     for (int i = 0; ascii_art[i] != nullptr; ++i) {
         mvwprintw(win, y++, 0, ascii_art[i]);
     }
+
+    // y -= 3;
+    // for (int i = 0; ascii_art_2[i] != nullptr; ++i) {
+    //     mvwprintw(win, y++, 0, ascii_art_2[i]);
+    // }
 
     wrefresh(win);
 }
@@ -578,7 +593,21 @@ void Wordle::loadScreen()
     mvwprintw(windowTest, 1, text_startx - 7, "Welcome to Winter Wordleland!");
     mvwprintw(windowTest, 3, text_startx - 4, "Loading... Please wait");
 
-    displayAsciiArt(windowTest);
+   const char* ascii_art_1[] = {
+        "   .-.                                                   \\ /",
+        "  ( (                                |                  - * -",
+        "   '-`                              -+-                  / \\",
+        "            \\            o          _|_          \\",
+        "            ))          }^{        /___\\         ))",
+        "          .-#-----.     /|\\     .---'-'---.    .-#-----.",
+        "     ___ /_________\\   //|\\\\   /___________\\  /_________\\",
+        "    /___\\ |[] _ []|    //|\\\\    | A /^\ A |    |[] _ []| _.O,_",
+        "....|\"#\"|.|  |*|  |...///|\\\\\\...|   |\"|   |....|  |*|  |..(^)....",
+        nullptr
+    };
+   
+
+   displayAsciiArt(windowTest, ascii_art_1, 9);
 
     // loading bar
     int bar_width = 40;
