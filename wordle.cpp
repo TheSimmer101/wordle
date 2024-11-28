@@ -313,35 +313,15 @@ void Wordle::play()
     int c = (cols - dash_length) / 2;
 
     // instructions for game
-    mvprintw(r - 8, c - 40, "Here's how you play:");
-    mvprintw(r - 7, c - 40, "You have five chances to guess the right word!");
-    mvprintw(r - 6, c - 40, "For each letter in your guess, the color changes depending on how close you are to the answer.");
-    mvprintw(r - 5, c - 40, "If the letter is green: the letter is in the correct spot, well done!");
-    mvprintw(r - 4, c - 40, "If the letter is yellow: the letter is somewhere in the word, but not where you put it");
-    mvprintw(r - 3, c - 40, "If the letter is gray: the letter is not in the word at all, tough");
-    mvprintw(r - 2, c - 40, "Have fun!");
+    mvprintw(r - 12, c - 40, "Here's how you play:");
+    mvprintw(r - 11, c - 40, "You have five chances to guess the right word!");
+    mvprintw(r - 10, c - 40, "For each letter in your guess, the color changes depending on how close you are to the answer.");
+    mvprintw(r - 8, c - 40, "If the letter is green: the letter is in the correct spot, well done!");
+    mvprintw(r - 7, c - 40, "If the letter is yellow: the letter is somewhere in the word, but not where you put it");
+    mvprintw(r - 6, c - 40, "If the letter is gray: the letter is not in the word at all");
+    mvprintw(r - 4, c - 40, "Have fun!");
 
-    char dash[dash_length + 1];
-    for (size_t i = 0; i < answer.length(); ++i)
-    {
-        dash[i * 2] = '_';
-        if (i < answer.length() - 1)
-        {
-            dash[i * 2 + 1] = ' ';
-        }
-    }
-    dash[dash_length] = '\0';
-
-    for (int i = 0; i < 5; ++i)
-    {
-        mvprintw(r + i, c, "%s", dash);
-    }
-
-    currentPos.x = c;
-    currentPos.y = r;
-    move(currentPos.y, currentPos.x);
-    refresh();
-
+    
     const char* ascii_art_2[] = {
          ".      *    *           *.       *   .                      *     .",
         "               .   .                   __   *    .     * .     *",
@@ -365,10 +345,8 @@ void Wordle::play()
     for (int i = 0; ascii_art_2[i] != nullptr; i++) {
         mvprintw(art_start_y1 + i, art_start_x1, ascii_art_2[i]);
     }
-    refresh();
 
     
-
     const char* ascii_art_3[] = {
         "                                                   __.  .--,",
     "*-/___,  ,-/___,-/___,-/___,-/___,           _.-.=,{\\/ _/  /`)",
@@ -390,19 +368,27 @@ void Wordle::play()
         mvprintw(art_start_y2 + i, art_start_x2, ascii_art_3[i]);
     }
 
+    
+    char dash[dash_length + 1];
+    for (size_t i = 0; i < answer.length(); ++i)
+    {
+        dash[i * 2] = '_';
+        if (i < answer.length() - 1)
+        {
+            dash[i * 2 + 1] = ' ';
+        }
+    }
+    dash[dash_length] = '\0';
+
+    for (int i = 0; i < 5; ++i)
+    {
+        mvprintw(r + i, c, "%s", dash);
+    }
+
+    currentPos.x = c;
+    currentPos.y = r;
+    move(currentPos.y, currentPos.x);
     refresh();
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     coordinates currentCopy; // I didn't use this
@@ -630,7 +616,7 @@ void Wordle::loadScreen()
     mvwprintw(windowTest, 1, text_startx - 7, "Welcome to Winter Wordleland!");
     mvwprintw(windowTest, 3, text_startx - 4, "Loading... Please wait");
 
-   // display this cute wintee scenery in loading page
+   // display this cute winter scenery in loading page
    const char* ascii_art_1[] = {
         "   .-.                                                   \\ /",
         "  ( (                                |                  - * -",
@@ -649,33 +635,6 @@ void Wordle::loadScreen()
     for (int i = 0; ascii_art_1[i] != nullptr; i++) {
         mvwprintw(windowTest, start_y + i, 0, ascii_art_1[i]);
     }
-
-//     const char* snowflake_art_1[] = {
-//         "       *  .  *",
-//     "     . _\\/ \\/_ .",
-//     "     \\\\  \\ /  /          ",
-//     "    -==>: X :<==-      ",
-//     "      / _/ \\_ \\     ",
-//     "     '  /\\ /\\  '    ",
-//     "       *  '  *   ",
-//         nullptr
-//     };
-
-
-//    // Snowflake positions
-//     int snowflake_start_x1 = 70;  // Right side of the screen
-//     int snowflake_start_y1 = 6;   // Starting position vertically
-//     int snowflake_start_x2 = 0;   // Left side of the screen (start at the beginning)
-//     int snowflake_start_y2 = 6;   // Same vertical position as snowflake 1
-
-//     // Displaying snowflake 1 on the right side and snowflake 2 on the left
-//     for (int i = 0; snowflake_art_1[i] != nullptr; i++) {
-//         // Snowflake 1 on the right
-//         mvwprintw(windowTest, snowflake_start_y1 + i, snowflake_start_x1, snowflake_art_1[i]);
-//         // Snowflake 2 on the left
-//         mvwprintw(windowTest, snowflake_start_y2 + i, snowflake_start_x2, snowflake_art_1[i]);
-//     }
-    
 
     // loading bar
     int bar_width = 40;
