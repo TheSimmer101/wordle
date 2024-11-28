@@ -312,13 +312,13 @@ void Wordle::play()
     int c = (cols - dash_length) / 2;
 
     // instructions for game
-    // mvprintw(r - 8, c - 40, "Here's how you play:");
-    // mvprintw(r - 7, c - 40, "You have five chances to guess the right word!");
-    // mvprintw(r - 6, c - 40, "For each letter in your guess, the color changes depending on how close you are to the answer.");
-    // mvprintw(r - 5, c - 40, "If the letter is green: the letter is in the correct spot, well done!");
-    // mvprintw(r - 4, c - 40, "If the letter is yellow: the letter is somewhere in the word, but not where you put it");
-    // mvprintw(r - 3, c - 40, "If the letter is gray: the letter is not in the word at all, tough");
-    // mvprintw(r - 2, c - 40, "Have fun!");
+    mvprintw(r - 8, c - 40, "Here's how you play:");
+    mvprintw(r - 7, c - 40, "You have five chances to guess the right word!");
+    mvprintw(r - 6, c - 40, "For each letter in your guess, the color changes depending on how close you are to the answer.");
+    mvprintw(r - 5, c - 40, "If the letter is green: the letter is in the correct spot, well done!");
+    mvprintw(r - 4, c - 40, "If the letter is yellow: the letter is somewhere in the word, but not where you put it");
+    mvprintw(r - 3, c - 40, "If the letter is gray: the letter is not in the word at all, tough");
+    mvprintw(r - 2, c - 40, "Have fun!");
 
     char dash[dash_length + 1];
     for (size_t i = 0; i < answer.length(); ++i)
@@ -541,25 +541,27 @@ void Wordle::play()
     // // mvprintw(100, 100, "%s", "yay you did it!");
 }
 
-void displayAsciiArt(WINDOW *win) {
-    // ASCII art as a string (multiple lines)
+void Wordle::displayAsciiArt(WINDOW *win) {
     const char* ascii_art[] = {
-        "  _______  __   __  _______  __    __  _______  __   __",
-        " |  ____| \\ \\ / / |  ____| \\ \\  / / |  ____| \\ \\ / /",
-        " | |__     \\ V /  | |__     \\ \\/ /  | |__     \\ V / ",
-        " |  __|     | |   |  __|     \\  /   |  __|     | |  ",
-        " | |____    | |   | |____    | |    | |____    | |  ",
-        " |______|   |_|   |______|   |_|    |______|   |_|  ",
-        nullptr // null-terminate the array
+        "   .-.                                                   \\ /",
+        "  ( (                                |                  - * -",
+        "   '-`                              -+-                  / \\",
+        "            \\            o          _|_          \\",
+        "            ))          }^{        /___\\         ))",
+        "          .-#-----.     /|\\     .---'-'---.    .-#-----.",
+        "     ___ /_________\\   //|\\\\   /___________\\  /_________\\",
+        "    /___\\ |[] _ []|    //|\\\\    | A /^\ A |    |[] _ []| _.O,_",
+        "....|\"#\"|.|  |*|  |...///|\\\\\\...|   |\"|   |....|  |*|  |..(^)....",
+        nullptr
     };
 
-    // Loop through the array and print each line of the ASCII art
-    int y = 5; // Starting Y position in the window
+    // prints ascii art
+    int y = 9; 
     for (int i = 0; ascii_art[i] != nullptr; ++i) {
-        mvwprintw(win, y++, 0, ascii_art[i]); // Print each line
+        mvwprintw(win, y++, 0, ascii_art[i]);
     }
 
-    wrefresh(win); // Refresh window to display the ASCII art
+    wrefresh(win);
 }
 
 void Wordle::loadScreen()
@@ -578,7 +580,7 @@ void Wordle::loadScreen()
     displayAsciiArt(windowTest);
 
     // loading bar
-    int bar_width = 35;
+    int bar_width = 40;
     int bar_startx = (80 - bar_width) / 4;
     int bar_y = 5;
 
