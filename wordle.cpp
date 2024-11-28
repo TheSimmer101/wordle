@@ -82,6 +82,7 @@ Wordle::Wordle()
     init_pair(1, COLOR_GREEN, COLOR_BLACK); // Pair 1: Green text on black background
     init_pair(2, COLOR_YELLOW, COLOR_BLACK);
     init_pair(3, COLOR_WHITE, COLOR_BLACK);
+    init_pair(4, COLOR_WHITE, COLOR_BLUE);  // Blue loading screen
 
     // CREATE POSSIBLE ANSWER HASHMAP
     std::ifstream infile; // creates variable for file to open for reading
@@ -546,15 +547,15 @@ void Wordle::loadScreen()
     initscr();
     cbreak();
     refresh();
+
     WINDOW *windowTest = newwin(30, 100, 6, 60);
     int text_startx = (60 - strlen("hello world")) / 2; // put some text to help with centering
-
-    // loading dots
-    mvwprintw(windowTest, 1, text_startx, "Welcome!");
-    mvwprintw(windowTest, 3, text_startx - 4, "Loading wordle...");
+    
+    mvwprintw(windowTest, 1, text_startx - 7, "Welcome to Winter Wordleland!");
+    mvwprintw(windowTest, 3, text_startx - 4, "Loading... Please wait");
 
     // loading bar
-    int bar_width = 30;
+    int bar_width = 35;
     int bar_startx = (80 - bar_width) / 4;
     int bar_y = 5;
 
@@ -568,9 +569,12 @@ void Wordle::loadScreen()
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
     std::this_thread::sleep_for(std::chrono::seconds(2));
+    
     werase(windowTest);
     wrefresh(windowTest);
     delwin(windowTest);
+    refresh();
+  
 }
 
 // checks if it's a real word
