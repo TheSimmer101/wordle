@@ -41,7 +41,7 @@ int main()
   //   }
 
   Wordle w;
-  // w.loadScreen();
+  w.loadScreen();
   w.play();
   // delwin(windowTest);
   // clear();

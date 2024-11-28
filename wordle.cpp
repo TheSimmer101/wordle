@@ -607,15 +607,15 @@ void Wordle::play()
 
 // helper function to display ascii art in loading screen
 // i tried to use it in gameplay screen but it wasn't turning out well
-void Wordle::displayAsciiArt(WINDOW *win, const char* ascii_art[], int start_y = 9) {
-    // prints ascii art
-    int y = start_y; 
-    for (int i = 0; ascii_art[i] != nullptr; ++i) {
-        mvwprintw(win, y++, 0, ascii_art[i]);
-    }
+// void Wordle::displayAsciiArt(WINDOW *win, const char* ascii_art[], int start_y = 9) {
+//     // prints ascii art
+//     int y = start_y; 
+//     for (int i = 0; ascii_art[i] != nullptr; ++i) {
+//         mvwprintw(win, y++, 0, ascii_art[i]);
+//     }
 
-    wrefresh(win);
-}
+//     wrefresh(win);
+// }
 
 void Wordle::loadScreen()
 {
@@ -645,7 +645,37 @@ void Wordle::loadScreen()
     };
    
 
-   displayAsciiArt(windowTest, ascii_art_1, 9); // calls helper function
+    int start_y = 9;
+    for (int i = 0; ascii_art_1[i] != nullptr; i++) {
+        mvwprintw(windowTest, start_y + i, 0, ascii_art_1[i]);
+    }
+
+//     const char* snowflake_art_1[] = {
+//         "       *  .  *",
+//     "     . _\\/ \\/_ .",
+//     "     \\\\  \\ /  /          ",
+//     "    -==>: X :<==-      ",
+//     "      / _/ \\_ \\     ",
+//     "     '  /\\ /\\  '    ",
+//     "       *  '  *   ",
+//         nullptr
+//     };
+
+
+//    // Snowflake positions
+//     int snowflake_start_x1 = 70;  // Right side of the screen
+//     int snowflake_start_y1 = 6;   // Starting position vertically
+//     int snowflake_start_x2 = 0;   // Left side of the screen (start at the beginning)
+//     int snowflake_start_y2 = 6;   // Same vertical position as snowflake 1
+
+//     // Displaying snowflake 1 on the right side and snowflake 2 on the left
+//     for (int i = 0; snowflake_art_1[i] != nullptr; i++) {
+//         // Snowflake 1 on the right
+//         mvwprintw(windowTest, snowflake_start_y1 + i, snowflake_start_x1, snowflake_art_1[i]);
+//         // Snowflake 2 on the left
+//         mvwprintw(windowTest, snowflake_start_y2 + i, snowflake_start_x2, snowflake_art_1[i]);
+//     }
+    
 
     // loading bar
     int bar_width = 40;

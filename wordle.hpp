@@ -103,7 +103,6 @@ public:
     void print() const;
     bool realWord(const std::string &guess) const; // helper function to check if the word is an actual word in the dictionary
     void loadScreen();
-   void displayAsciiArt(WINDOW *win, const char* ascii_art[], int start_y);
 
     ~Wordle();
 };
