@@ -541,6 +541,27 @@ void Wordle::play()
     // // mvprintw(100, 100, "%s", "yay you did it!");
 }
 
+void displayAsciiArt(WINDOW *win) {
+    // ASCII art as a string (multiple lines)
+    const char* ascii_art[] = {
+        "  _______  __   __  _______  __    __  _______  __   __",
+        " |  ____| \\ \\ / / |  ____| \\ \\  / / |  ____| \\ \\ / /",
+        " | |__     \\ V /  | |__     \\ \\/ /  | |__     \\ V / ",
+        " |  __|     | |   |  __|     \\  /   |  __|     | |  ",
+        " | |____    | |   | |____    | |    | |____    | |  ",
+        " |______|   |_|   |______|   |_|    |______|   |_|  ",
+        nullptr // null-terminate the array
+    };
+
+    // Loop through the array and print each line of the ASCII art
+    int y = 5; // Starting Y position in the window
+    for (int i = 0; ascii_art[i] != nullptr; ++i) {
+        mvwprintw(win, y++, 0, ascii_art[i]); // Print each line
+    }
+
+    wrefresh(win); // Refresh window to display the ASCII art
+}
+
 void Wordle::loadScreen()
 {
     // credit: https://stackoverflow.com/questions/67514610/how-do-i-make-a-welcome-screen-using-ncurses-that-leads-into-my-code
@@ -553,6 +574,8 @@ void Wordle::loadScreen()
     
     mvwprintw(windowTest, 1, text_startx - 7, "Welcome to Winter Wordleland!");
     mvwprintw(windowTest, 3, text_startx - 4, "Loading... Please wait");
+
+    displayAsciiArt(windowTest);
 
     // loading bar
     int bar_width = 35;
