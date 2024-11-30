@@ -38,11 +38,9 @@ Once your docker container is running, the username in the terminal should chang
 with the command `make run`. To exit, press `ctrl` z and type the command `exit`.   For more information, visit the official Docker website: https://www.docker.com/
 
 
-Here are the other resources we used:
+Here are other resources we used:
 * Ncurses: a library to display the colors in the terminal and update in real-time based on the player's input
-
 * Hunspell: a spell-checking library that ensures players follow Wordle's rule of inputting real words
-
 * LibreOffice English Dictionary: an extension that enhances spell-checking by verifying words against its dictionary. Based on user input, it checks whether a word exists in the dictionary; if it doesn’t, the word is marked as invalid
 
 ### HAVE FUN!!!
