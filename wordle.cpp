@@ -336,7 +336,7 @@ void Wordle::play()
 
 
     // have the ascii snowman art be displayed at the bottom corner right
-    int offset_y1 = 3; 
+    int offset_y1 = 4; 
     int offset_x1 = 8; 
 
     int art_start_y1 = rows - 6 - offset_y1;
@@ -390,9 +390,7 @@ void Wordle::play()
     move(currentPos.y, currentPos.x);
     refresh();
 
-
-    coordinates currentCopy; // I didn't use this
-
+//main code for getting guess & ensuring it's valid, then printing with colors
     for (int i = 1; i <= 5; i++)
     {
         guess = getGuess(currentPos);
@@ -445,10 +443,22 @@ void Wordle::play()
 
         }
     }
-    // if(guess == answer)
-    //             printw("Yay! You guessed correctly!");
-    //         else
-    //             printw("( ◡̀_◡́)ᕤ  Aw, you didn't get the word!");
+
+
+    move(r+6, c-6);
+    std::string revealAnswer = "The word is: " + answer;
+    if(guess == answer)
+    {
+        printw("Yay! You guessed correctly! :D");
+    }
+                
+    else
+        {
+            printw("Aw, you didn't get the word!");
+            mvprintw(r+7, c-6, revealAnswer.c_str());
+                
+        }
+                
 }
 
 // helper function to display ascii art in loading screen
