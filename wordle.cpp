@@ -336,7 +336,7 @@ void Wordle::play()
 
 
     // have the ascii snowman art be displayed at the bottom corner right
-    int offset_y1 = 4; 
+    int offset_y1 = 3; 
     int offset_x1 = 8; 
 
     int art_start_y1 = rows - 6 - offset_y1;
