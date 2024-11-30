@@ -445,21 +445,38 @@ void Wordle::play()
     }
 
 
-    move(r+6, c-6);
-    std::string revealAnswer = "The word is: " + answer;
-    if(guess == answer)
-    {
-        printw("Yay! You guessed correctly! :D");
-    }
+    // move(r+6, c-6);
+    // std::string revealAnswer = "The word is: " + answer;
+    // if(guess == answer)
+    // {
+    //     printw("Yay! You guessed correctly! :D");
+    // }
                 
-    else
-        {
-            printw("Aw, you didn't get the word!");
-            mvprintw(r+7, c-6, revealAnswer.c_str());
-        }
+    // else
+    //     {
+    //         printw("Aw, you didn't get the word!");
+    //         mvprintw(r+7, c-6, revealAnswer.c_str());
+    //     }
 
-    move(r + 9, c-12);
-    printw("Would you like to play again? (Use arrow keys): Y/N");        
+    // move(r + 9, c-12);
+    // printw("Would you like to play again? (Use arrow keys): Y/N"); 
+
+    int centerCol = cols / 2;
+
+    if (guess == answer) 
+    {
+        mvprintw(r + 7, centerCol - 16, "Yay! You guessed correctly! :D");
+    } 
+    else 
+    {
+        mvprintw(r + 6, centerCol - 13, "Aw, you didn't get the word!");
+        std::string revealAnswer = "The word is: " + answer;
+        mvprintw(r + 7, centerCol - revealAnswer.length() / 2, "%s", revealAnswer.c_str());
+    }
+
+    std::string prompt = "Would you like to play again? (Use arrow keys): Y/N";
+    mvprintw(r + 9, centerCol - prompt.length() / 2, "%s", prompt.c_str());
+       
 }
 
 // helper function to display ascii art in loading screen
