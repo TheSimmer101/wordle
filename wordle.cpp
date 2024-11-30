@@ -2,71 +2,6 @@
 
 Wordle::Wordle()
 {
-    // initscr(); //generates a screen
-    // noecho(); //user input shows up screen immediately after typed.
-    // char dash[] = "_ _ _ _ _";
-
-    // if(answer.length() == 6)
-    //     char dash[] = "_ _ _ _ _ _";
-
-    // mvprintw(10,94,"%s",dash);
-    // currentPos.x = 94;
-    // currentPos.y = 10;
-    // move(currentPos.y,currentPos.x);
-    // refresh();
-    // attempts = 0;
-    // answer = "hello"; //this is a placeholder for now, but it will be a randomly picked word
-
-    // initscr(); // generates a screen
-    // // raw();
-    // // intrflush(stdscr, FALSE); // this stops the program to stop running when an interrupt key is read
-    // keypad(stdscr, true);               // allows keypad input
-    // noecho();                           // user input shows up screen immediately after typed.
-    // answer = "hello";                   // this is a placeholder for now, but it will be a randomly picked word
-    // // char dash[answer.length() * 2 - 1]; // generates dash based on length of answer
-
-    // // for (size_t i = 0; i < answer.length(); ++i)
-    // // {
-    // //     dash[i * 2] = '_'; // adds dash
-    // //     if (i < answer.length() - 1)
-    // //     {
-    // //         dash[i * 2 + 1] = ' '; // adds spaces in between dashes
-    // //     }
-    // // }
-
-    // // gets terminal dimensions to center it
-
-    // char dash[] = "_ _ _ _ _";
-
-    // if(answer.length() == 6)
-    //     char dash[] = "_ _ _ _ _ _";
-
-    // int rows, cols;
-    // getmaxyx(stdscr, rows, cols);
-
-    // int r = rows / 2;
-    // int dash_length = answer.length() * 2 - 1;
-    // int c = (cols - dash_length) / 2;
-    // std::cout << "\n\nrow: " << r;
-    // //std::cout << "\n col: " << c;
-    // currentPos.x = c;
-    // currentPos.y = r;
-
-    // //hello there
-    // int row = 14;
-    // for(int i = 0; i < 5; i++)
-    // {
-
-    //     mvprintw(row, 114, "%s", dash);
-    //     row++;
-    //     //mvprintw(currentPos.y, currentPos.x, "%s", dash);
-    //     currentPos.y++;
-    // }
-    // currentPos.y = r;
-    // move(currentPos.y, currentPos.x);
-    // refresh();
-    // attempts = 0;
-
     initscr();
     keypad(stdscr, true);
     noecho(); // stop it from showing all characters typed in
@@ -104,8 +39,8 @@ Wordle::Wordle()
     // generate random position
     srand(time(0));
     int randomPos = 1 + rand() % 106;
-    answer = "JOLLY";
-   // answer = possible_answers[1];
+   
+    answer = possible_answers[randomPos];
     attempts = 0;
 
     int rows, cols;
@@ -115,143 +50,12 @@ Wordle::Wordle()
     int dash_length = answer.length() * 2 - 1;
     int c = (cols - dash_length) / 2;
 
-    // // instructions for game
-    // mvprintw(r - 8, c - 40, "Here's how you play:");
-    // mvprintw(r - 7, c - 40, "You have five chances to guess the right word!");
-    // mvprintw(r - 6, c - 40, "For each letter in your guess, the color changes depending on how close you are to the answer.");
-    // mvprintw(r - 5, c - 40, "If the letter is green: the letter is in the correct spot, well done!");
-    // mvprintw(r - 4, c - 40, "If the letter is yellow: the letter is somewhere in the word, but not where you put it");
-    // mvprintw(r - 3, c - 40, "If the letter is gray: the letter is not in the word at all, tough");
-    // mvprintw(r - 2, c - 40, "Have fun!");
-
-    // char dash[dash_length + 1];
-    // for (size_t i = 0; i < answer.length(); ++i)
-    // {
-    //     dash[i * 2] = '_';
-    //     if (i < answer.length() - 1)
-    //     {
-    //         dash[i * 2 + 1] = ' ';
-    //     }
-    // }
-    // dash[dash_length] = '\0';
-
-    // for (int i = 0; i < 5; ++i)
-    // {
-    //     mvprintw(r + i, c, "%s", dash);
-    // }
-
     currentPos.x = c;
     currentPos.y = r;
     move(currentPos.y, currentPos.x);
     refresh();
 }
 
-void Wordle::print() const
-{
-
-    refresh();
-}
-
-std::string Wordle::getGuess()
-{
-
-    // user_input = getch();
-    // if (user_input == KEY_BACKSPACE)
-    // {
-    //     if (!guess.empty())
-    //     {
-    //         guess = guess.substr(0, guess.length() - 1);
-    //         currentPos.moveLeft();
-    //         move(currentPos.y, currentPos.x);
-    //         mvprintw(currentPos.y, currentPos.x, "%c", '_');
-    //         move(currentPos.y, currentPos.x);
-    //     }
-    // }
-    // else
-    // {
-    //     guess += user_input;
-    //     mvprintw(currentPos.y, currentPos.x, "%c", user_input);
-    //     // currentPos.x++;
-    //     currentPos.moveRight();
-    //     move(currentPos.y, currentPos.x);
-    //     // mvprintw(currentPos.y,currentPos.x,"%c",c);
-    // }
-
-    // user_input = getch();
-    // const int BACKSPACE_KEY = 127; // ascii key for delete character, adjust if your terminal uses a different code for backspace
-
-    // if (user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
-    // {
-    //     if (!guess.empty())
-    //     {
-    //         guess = guess.substr(0, guess.length() - 1);
-    //         currentPos.moveLeft();
-    //         move(currentPos.y, currentPos.x);
-    //         addch('_'); // replace backspace with dash
-    //         move(currentPos.y, currentPos.x);
-    //     }
-    // }
-    // else
-    // {
-    //     guess += user_input;
-    //     mvprintw(currentPos.y, currentPos.x, "%c", user_input);
-    //     currentPos.moveRight();
-    //     move(currentPos.y, currentPos.x);
-    // }
-
-    guess = "";
-
-    const int BACKSPACE_KEY = 127; // ascii key for delete character
-
-    int rows, cols;
-    getmaxyx(stdscr, rows, cols);
-
-    int dash_length = answer.length() * 2 - 1;
-    leftmost_x = (cols - dash_length) / 2;
-    rightmost_x = leftmost_x + dash_length - 1; // last dash
-
-    while (guess.length() != answer.length())
-    {
-        user_input = getch();
-
-        if (user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
-        {
-            if (!guess.empty())
-            {
-                guess = guess.substr(0, guess.length() - 1);
-                currentPos.moveLeft();
-                move(currentPos.y, currentPos.x);
-                addch('_'); // replace backspace with dash
-                move(currentPos.y, currentPos.x);
-            }
-        }
-        else if (user_input == KEY_ENTER || user_input == '\n') // if user presses enter
-        {
-            if (currentPos.x == rightmost_x) // current position is on last dash
-            {
-                currentPos.y++;            // moves to next row
-                currentPos.x = leftmost_x; // current position goes to leftmost dash
-                move(currentPos.y, currentPos.x);
-                refresh();
-                return guess;
-            }
-        }
-        else
-        {
-            guess += toupper(user_input);
-            mvprintw(currentPos.y, currentPos.x, "%c", toupper(user_input));
-            currentPos.moveRight();
-
-            if (currentPos.x > rightmost_x)
-            {
-                currentPos.y++;
-                currentPos.x = leftmost_x;
-            }
-            move(currentPos.y, currentPos.x);
-        }
-    }
-    return guess;
-}
 
 std::string Wordle::getGuess(coordinates startPos)
 {
@@ -445,22 +249,6 @@ void Wordle::play()
     }
 
 
-    // move(r+6, c-6);
-    // std::string revealAnswer = "The word is: " + answer;
-    // if(guess == answer)
-    // {
-    //     printw("Yay! You guessed correctly! :D");
-    // }
-                
-    // else
-    //     {
-    //         printw("Aw, you didn't get the word!");
-    //         mvprintw(r+7, c-6, revealAnswer.c_str());
-    //     }
-
-    // move(r + 9, c-12);
-    // printw("Would you like to play again? (Use arrow keys): Y/N"); 
-
     int centerCol = cols / 2;
 
     if (guess == answer) 
@@ -479,17 +267,7 @@ void Wordle::play()
        
 }
 
-// helper function to display ascii art in loading screen
-// i tried to use it in gameplay screen but it wasn't turning out well
-// void Wordle::displayAsciiArt(WINDOW *win, const char* ascii_art[], int start_y = 9) {
-//     // prints ascii art
-//     int y = start_y; 
-//     for (int i = 0; ascii_art[i] != nullptr; ++i) {
-//         mvwprintw(win, y++, 0, ascii_art[i]);
-//     }
 
-//     wrefresh(win);
-// }
 
 void Wordle::loadScreen()
 {
@@ -545,64 +323,6 @@ void Wordle::loadScreen()
     delwin(windowTest);
     refresh();
   
-}
-
-// checks if it's a real word
-bool Wordle::realWord(const std::string &guess) const
-{
-    // Hunspell hunspell("/usr/share/hunspell/en_US.aff", "/usr/share/hunspell/en_US.dic");
-
-    // while (true)
-    // {
-    //     user_input = getch();
-    //     if (user_input == KEY_ENTER || user_input == '\n' && hunspell.spell(guess) == true)
-    //     {
-    //         return guess;
-    //     }
-    //     else if (hunspell.spell(guess) == false)
-    //     {
-    //         move(startPos.y, startPos.x + 5);
-    //         printw("%s", "Please enter a valid word!");
-    //         user_input = getch();
-
-    //         if (user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
-    //         {
-
-    //             if (!guess.empty())
-    //             {
-    //                 guess = guess.substr(0, guess.length() - 1);
-    //                 startPos.moveLeft();
-    //                 move(startPos.y, startPos.x);
-    //                 addch('_'); // replace backspace with dash
-    //                 move(startPos.y, startPos.x);
-    //             }
-    //         }
-    //     }
-    // }
-}
-
-int Wordle::charIndex(const std::string &str, const char &c,const int &startIndex) const
-{
-    for (int i = startIndex; i < str.length(); i++)
-    {
-        if (str[i] == c)
-            return i;
-    }
-    return -1;
-}
-
-int Wordle::countLetters(const std::string &s, const char &c, const int &startIndex) const
-{
-    int count = 0;
-    for (char ch : s)
-    {
-        if (ch == c)
-        {
-            count++;
-        }
-    }
-
-    return count;
 }
 
 std::vector<Wordle::colors> Wordle::getColors(const std::string &guess) const
