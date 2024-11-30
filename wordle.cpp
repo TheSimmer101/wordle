@@ -442,153 +442,13 @@ void Wordle::play()
             currentPos.x = c;
             currentPos.y = r + i;
             move(currentPos.y, currentPos.x);
+
         }
     }
-
-    // // for(int colorIndex = 0; colorIndex < guess.length(); colorIndex++)
-    // // {
-    // //     if(c[colorIndex] == green)
-    // //     {
-    // //         attron(COLOR_PAIR(1));
-    // //         printw("%s",guess[colorIndex] + " ");
-    // //         attroff(COLOR_PAIR(1));
-
-    // //     }
-    // //     else if(c[colorIndex] == yellow)
-    // //     {
-    // //         attron(COLOR_PAIR(2));
-    // //         printw("%s",guess[colorIndex] + " ");
-    // //         attroff(COLOR_PAIR(2));
-    // //     }
-    // //     else if(c[colorIndex] == white)
-    // //     {
-    // //         attron(COLOR_PAIR(3));
-    // //         printw("%s",guess[colorIndex] + " ");
-    // //         attroff(COLOR_PAIR(3));
-    // //     }
-
-    // for (int i = 1; i <= 5; i++)
-    // {
-    //     currentCopy.y = currentPos.y;
-    //     currentCopy.x = currentPos.x;
-    //     guess = getGuess(currentCopy);
-
-    //     // std::vector<Wordle::colors> c = getColors(guess);
-    //     // move(currentPos.y, leftmost_x);
-    //     // for (int i = 0; i < guess.length(); i++)
-    //     // {
-    //     //     if (c[i] == green)
-    //     //     {
-    //     //         attron(COLOR_PAIR(1));
-    //     //         printw("%c", guess[i]);
-    //     //         attroff(COLOR_PAIR(1));
-    //     //     }
-    //     // }
-    //     std::vector<Wordle::colors> colorsVec = getColors(guess);
-    //     if (guess == answer)
-    //     { // code to print guess in green
-    //         currentPos.x = leftmost_x;
-    //         // currentPos.y = r + i;
-
-    //         for (int i = 0; i < guess.length(); i++)
-    //         {
-    //             attron(COLOR_PAIR(1));
-    //             printw("%s", guess[i] + " ");
-    //             move(currentPos.y, currentPos.x + 1);
-    //             attroff(COLOR_PAIR(1));
-    //         }
-
-    //         i = 6;
-    //         currentPos.x = c;
-    //         currentPos.y = r + i;
-    //     }
-    //     else
-    //     {
-    //         for (int colorIndex = 0; colorIndex < guess.length(); colorIndex++)
-    //         {
-    //             if (colorsVec[colorIndex] == green)
-    //             {
-    //                 attron(COLOR_PAIR(1));
-    //                 printw("%s", guess[colorIndex] + " ");
-    //                 attroff(COLOR_PAIR(1));
-    //             }
-    //             else if (colorsVec[colorIndex] == yellow)
-    //             {
-    //                 attron(COLOR_PAIR(2));
-    //                 printw("%s", guess[colorIndex] + " ");
-    //                 attroff(COLOR_PAIR(2));
-    //             }
-    //             else if (colorsVec[colorIndex] == white)
-    //             {
-    //                 attron(COLOR_PAIR(3));
-    //                 printw("%s", guess[colorIndex] + " ");
-    //                 attroff(COLOR_PAIR(3));
-    //             }
-    //             currentPos.x = c;
-    //             currentPos.y = r + i;
-    //             move(currentPos.y, currentPos.x);
-    //         }
-    //     }
-    // }
-    // // endwin();
-    // // bool finalGuess = false; // this is the word they want to enter after all inputs
-    // // for (int i = 0; i < 5; i++)
-    // // {
-    // //     // this is to get each char for their word until they get their final answer
-    // //     // to do:
-    // //     // allow them to enter the answer instead of just accepting it at the word length
-    // //     // while (!finalGuess)
-    // //     // {
-    // //     guess = getGuess(currentCopy);
-    // //     //     if (guess.length() == answer.length())
-    // //     //     {
-    // //     //         finalGuess = true;
-    // //     //     }
-    // //     // }
-    // //     std::vector<Wordle::colors> c = getColors(guess);
-    // //     move(currentPos.y, leftmost_x);
-    // //     for (int i = 0; i < guess.length(); i++)
-    // //     {
-    // //         if (c[i] == green)
-    // //         {
-    // //             attron(COLOR_PAIR(1));
-    // //             printw("%c", guess[i]);
-    // //             attroff(COLOR_PAIR(1));
-    // //         }
-    // //     }
-
-    // //     // this is to check if the guess is correct. if it is, exits the loop
-    // //     // if it isn't, it continues the guesses and their guess resets
-    // //     if (guess == answer)
-    // //     {
-    // //         break;
-    // //     }
-    // //     else
-    // //     {
-    // //         // finalGuess = false;
-    // //         guess = "";
-    // //         // to do
-    // //         // start a new line with new dashes
-
-    // //         // currentPos.y += 1;
-
-    // //         // // generate a new line of dashes
-    // //         // char dash[answer.length() * 2 - 1];
-    // //         // for (size_t j = 0; j < answer.length(); ++j)
-    // //         // {
-    // //         //     dash[j * 2] = '_'; // Add dash
-    // //         //     if (j < answer.length() - 1)
-    // //         //     {
-    // //         //         dash[j * 2 + 1] = ' ';
-    // //         //     }
-    // //         // }
-    // //         // mvprintw(currentPos.y, currentPos.x, "%s", dash);
-    // //         // move(currentPos.y, currentPos.x);
-    // //         // refresh();
-    // //     }
-    // // }
-
-    // // mvprintw(100, 100, "%s", "yay you did it!");
+    // if(guess == answer)
+    //             printw("Yay! You guessed correctly!");
+    //         else
+    //             printw("( ◡̀_◡́)ᕤ  Aw, you didn't get the word!");
 }
 
 // helper function to display ascii art in loading screen
@@ -747,7 +607,7 @@ std::vector<Wordle::colors> Wordle::getColors(const std::string &guess) const
         if(guess[k] == answer[k])
         {
             result[k] = green;
-            guessLettersCount[guess[k]]--;
+            answerLettersCount[guess[k]]--;
         }
             
         
@@ -758,7 +618,6 @@ std::vector<Wordle::colors> Wordle::getColors(const std::string &guess) const
         // else if (charIndex(answer, letter) == k)
         //     result.push_back(green);
     }
-
     for (int j = 0; j < guess.length(); j++)
     {
         //letter not in right position and quantity of letter in guess is less than its quantity in answer
