@@ -27,52 +27,45 @@
 //   return 0;
 // }
 
-#define MINIAUDIO_IMPLEMENTATION
-#include "miniaudio.h"
+
 #include <iostream>
 #include <cstdlib>
 #include <stdio.h>
+#include <SDL2/SDL.h> 
+#include <SDL2/SDL_mixer.h>
 using namespace std;
 
-// 2.3. Linux
-// The Linux build only requires linking to -ldl, -lpthread and -lm. You do not need any development packages. You may need to link with -latomic if you're compiling for 32-bit ARM.
 
-int main()
-{
-    ma_result result;
-    ma_engine engine;
-    ma_sound sound;
-
-    // Initialize the audio engine
-    result = ma_engine_init(NULL, &engine);
-    if (result != MA_SUCCESS) {
-        std::cerr << "Failed to initialize the audio engine: " << result << std::endl;
-        return -1;
+// g++ main.cpp -lSDL2 -lSDL2_mixer
+int main() {
+    if (SDL_Init(SDL_INIT_AUDIO) < 0) {
+        std::cerr << "SDL could not initialize! SDL Error: " << SDL_GetError() << std::endl;
+        return 1;
     }
 
-    // Load the sound
-    result = ma_sound_init_from_file(&engine, "Theme of Laura.wav", 0, NULL, NULL, &sound);
-    if (result != MA_SUCCESS) {
-        std::cerr << "Failed to load sound: " << result << std::endl;
-        ma_engine_uninit(&engine);
-        return -1;
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+        std::cerr << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << std::endl;
+        return 1;
     }
 
-    // Start playing the sound
-    result = ma_sound_start(&sound);
-    if (result != MA_SUCCESS) {
-        std::cerr << "Failed to start sound: " << result << std::endl;
-        ma_sound_uninit(&sound);
-        ma_engine_uninit(&engine);
-        return -1;
+    Mix_Music *music = Mix_LoadMUS("Theme of Laura.wav");
+    if (!music) {
+        std::cerr << "Failed to load music file! SDL_mixer Error: " << Mix_GetError() << std::endl;
+        return 1;
     }
 
-    std::cout << "Press Enter to quit..." << std::endl;
-    std::getchar();
+    Mix_PlayMusic(music, 1);
 
-    // Clean up
-    ma_sound_uninit(&sound);
-    ma_engine_uninit(&engine);
+    while (Mix_PlayingMusic()) {
+        SDL_Delay(100);
+    }
+
+    Mix_FreeMusic(music);
+    Mix_CloseAudio();
+    SDL_Quit();
 
     return 0;
 }
+
+
+ 
