@@ -502,7 +502,7 @@ void Wordle::loadScreen()
     };
    
 
-    int start_y = 9;
+    int start_y = 10;
     for (int i = 0; ascii_art_1[i] != nullptr; i++) {
         mvwprintw(windowTest, start_y + i, 0, ascii_art_1[i]);
     }
@@ -510,7 +510,7 @@ void Wordle::loadScreen()
     // loading bar
     int bar_width = 40;
     int bar_startx = (80 - bar_width) / 4;
-    int bar_y = 5;
+    int bar_y = 6;
 
     mvwprintw(windowTest, bar_y, bar_startx, "[%s]", std::string(bar_width, ' ').c_str());
     wrefresh(windowTest);
