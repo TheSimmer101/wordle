@@ -456,9 +456,10 @@ void Wordle::play()
         {
             printw("Aw, you didn't get the word!");
             mvprintw(r+7, c-6, revealAnswer.c_str());
-                
         }
-                
+
+    move(r + 9, c-12);
+    printw("Would you like to play again? (Use arrow keys): Y/N");        
 }
 
 // helper function to display ascii art in loading screen
