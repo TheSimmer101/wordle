@@ -279,8 +279,22 @@ void Wordle::play()
         mvprintw(r + 7, centerCol - revealAnswer.length() / 2, "%s", revealAnswer.c_str());
     }
 
-    std::string prompt = "Would you like to play again? (Use arrow keys): Y/N";
+    std::string prompt = "Would you like to play again?";
     mvprintw(r + 9, centerCol - prompt.length() / 2, "%s", prompt.c_str());
+
+    const char *choices[] =
+    {
+        "Play Again",
+        "Quit",
+    };
+
+    currentPos.y = r + 10;
+    currentPos.x = centerCol - prompt.length() + 16;
+
+    mvprintw(currentPos.y,currentPos.x, "%s", choices[0]);
+    
+
+    
        
 }
 
