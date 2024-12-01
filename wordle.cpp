@@ -289,9 +289,10 @@ void Wordle::play()
     };
 
     currentPos.y = r + 10;
-    currentPos.x = centerCol - prompt.length() + 23;
+    currentPos.x = centerCol - prompt.length() + 24;
 
     mvprintw(currentPos.y,currentPos.x, "%s", choices[0]);
+    mvprintw(currentPos.y + 1,currentPos.x + 3, "%s", choices[1]);
 
    
 
