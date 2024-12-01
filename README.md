@@ -1,6 +1,6 @@
-# Welcome to Winter Wordleland! ❄️☃️
+# Welcome to Winter Wordleland! ☃️❄️
 
-We participated in the Daedalus Honors The Nightmare Before Christmas Hackathon by creating a winter-themed twist of The NY Times’ Wordle game! 
+We participated in the Daedalus Honors The Nightmare Before Christmas Hackathon by creating a winter-themed of The NY Times’ Wordle game! 
 
 
 ### Rules of our game:
@@ -34,13 +34,15 @@ docker run --name wordle_repo_container -it --rm -v ${PWD}/:/workspace -w /works
 ```
 
 Once your docker container is running, the username in the terminal should change to something like 
-`root@123456/workspace#` (numbers may vary). Once you have that username, compile and run our game 
-with the command `make run`. To exit, press `ctrl` z and type the command `exit`.   For more information, visit the official Docker website: https://www.docker.com/
+`root@123456/workspace#` (numbers may vary). Once you have that username, compile and run our game with the command `make run`. To exit, press `ctrl + z` (or `ctrl + c` on Mac) and type the command `exit`.   For more information, visit the official Docker website: https://www.docker.com/
 
 
-Here are other resources we used:
+#### Here are other resources we used:
 * Ncurses: a library to display the colors in the terminal and update in real-time based on the player's input
 * Hunspell: a spell-checking library that ensures players follow Wordle's rule of inputting real words
 * LibreOffice English Dictionary: an extension that enhances spell-checking by verifying words against its dictionary. Based on user input, it checks whether a word exists in the dictionary; if it doesn’t, the word is marked as invalid
+* Ascii art:
+  * Loading screen -> [Wintery scene](https://www.asciiart.eu/holiday-and-events/christmas/other)
+  * Gameplay screen -> [Snowmen](https://www.asciiart.eu/holiday-and-events/christmas/snowmen), [Santa sleigh](https://saravitaya.tripod.com/_ArtXmas.html#santasleigh)
 
 ### HAVE FUN!!!
