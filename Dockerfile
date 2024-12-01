@@ -37,10 +37,6 @@ FROM ubuntu:bionic
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
     git \
-    libsdl2-dev \ 
-    libsdl2-mixer-dev \ 
-    libsfml-dev \
-    alsa-utils \
     libncurses5-dev \
     libncursesw5-dev \
     hunspell \
@@ -66,11 +62,6 @@ COPY . /app
 # Create symbolic link for libncurses if necessary
 RUN ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.5 /usr/lib/x86_64-linux-gnu/libncurses.so.6 || true
 
-# Create the asound.conf file for ALSA configuration 
-RUN echo "pcm.!default {" > /etc/asound.conf \ 
-&& echo " type plug" >> /etc/asound.conf \ 
-&& echo " slave.pcm \"null\"" >> /etc/asound.conf \ 
-&& echo "}" >> /etc/asound.conf
 
 # Ensure permissions and build the application
 #RUN make
