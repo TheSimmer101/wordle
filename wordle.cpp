@@ -94,14 +94,31 @@ std::string Wordle::getGuess(coordinates startPos)
         {
             if (!hunspell.spell(guess))
             {
+              
                 move(startPos.y, startPos.x + 5);
                 printw("%s", "Please enter a valid word!");
+                refresh();
             }
             else
-            {
+            {  
+                move(startPos.y, startPos.x + 5);
+                clrtoeol();
+                refresh();
                 finalguess = true;
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
     }
     return guess;
 }
@@ -122,7 +139,7 @@ void Wordle::play()
     mvprintw(r - 10, c - 40, "For each letter in your guess, the color changes depending on how close you are to the answer.");
     mvprintw(r - 8, c - 40, "If the letter is green: the letter is in the correct spot, well done!");
     mvprintw(r - 7, c - 40, "If the letter is yellow: the letter is somewhere in the word, but not where you put it");
-    mvprintw(r - 6, c - 40, "If the letter is gray: the letter is not in the word at all");
+    mvprintw(r - 6, c - 40, "If the letter is white: the letter is not in the word at all");
     mvprintw(r - 4, c - 40, "Have fun!");
 
     
