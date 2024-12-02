@@ -17,7 +17,8 @@ using namespace std;
 int main()
 {
   Wordle w;
-  w.play();
+  // w.play();
+  w.endScreen();
 
   getch();
   return 0;

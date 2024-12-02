@@ -101,6 +101,7 @@ public:
     void play();
    
     void loadScreen();
+    void endScreen();
 
     ~Wordle();
 };

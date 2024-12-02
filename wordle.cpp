@@ -409,6 +409,75 @@ std::vector<Wordle::colors> Wordle::getColors(const std::string &guess) const
     return result;
 }
 
+void Wordle::endScreen() {
+    clear();
+    refresh();
+
+    WINDOW *windowTest = newwin(30, 100, 6, 60);
+
+
+    const char *ascii_art[] = {
+       "      _____________,--,",
+        "      | | | | | | |/ .-.\\   HANG IN THERE",
+        "      |_|_|_|_|_|_/ /   `.      SANTA",
+        "       |_|__|__|_; |      \\",
+        "       |___|__|_/| |     .'`}`",
+        "       |_|__|__/ | |   .'.'`\\",
+        "       |__|__|/  ; ;  / /    \\.-\"-.\"",
+        "       ||__|_;   \\ \\  ||    /`___. \\",
+        "       |_|___/\\  /;.`,\\\\   {_'___.;{",
+        "       |__|_/ `;`__|`-.;|  |C` e e`\\",
+        "       |___`L  \\__|__|__|  | `'-o-' }",
+        "       ||___|\\__)___|__||__|\\   ^  /`\\",
+        "       |__|__|__|__|__|_{___}'.__.`\\_.'}",
+        "       ||___|__|__|__|__;\\_)-'`\\   {_.-;",
+        "       |__|__|__|__|__|/` (`\\__/     '-'",
+        "       |_|___|__|__/`      |",
+        "------|__|___|__/`         \\-------------------",
+        "-.__.-.|___|___;`            |.__.-.__.-.__.-.__",
+        "  |     |     ||             |  |     |     |",
+        "-' '---' '---' \\             /-' '---' '---' '---",
+        "     |     |    '.        .' |     |     |     |",
+        "'---' '---' '---' `-===-'`--' '---' '---' '---'",
+        "  |     |     |     |     |     |     |     |",
+        "-' '---' '---' '---' '---' '---' '---' '---' '---'",
+        "     |     |     |     |     |     |     |     |",
+        "'---' '---' '---' '---' '---' '---' '---' '---'---'",
+        nullptr
+        };
+
+        int text_startx = (60 - strlen("hello world")) / 2;
+
+        mvwprintw(windowTest, 1, text_startx - 7, "Thanks for playing!");
+        wrefresh(windowTest);
+
+    
+        int start_y = 8;  
+        for (int i = 0; ascii_art[i] != nullptr; i++) {
+            mvwprintw(windowTest, start_y + i, 0, ascii_art[i]);
+        }
+        wrefresh(windowTest);
+
+        // countdown message
+        for (int i = 5; i >= 0; i--) {
+            mvwprintw(windowTest, 4, 12, "Closing window in %d seconds...", i);
+            wrefresh(windowTest);
+
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+            
+        }
+        werase(windowTest);
+        wrefresh(windowTest);
+        delwin(windowTest);
+
+        endwin();
+}
+
+
+
+
+
+
 Wordle::~Wordle()
 {
     endwin();
