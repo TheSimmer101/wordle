@@ -73,9 +73,6 @@ std::string Wordle::getGuess(coordinates startPos)
             mvprintw(startPos.y, startPos.x, "%c", user_input);
             startPos.moveRight();
             move(startPos.y, startPos.x);
-            // guess += toupper(user_input);
-            // printw("%c",toupper(user_input));
-            // startPos.moveRight();
         }
         else if (user_input == BACKSPACE_KEY || user_input == KEY_BACKSPACE)
         {
@@ -112,7 +109,6 @@ std::string Wordle::getGuess(coordinates startPos)
 
 void Wordle::play()
 {
-    // printw("Hello, world!\n");
     int rows, cols;
     getmaxyx(stdscr, rows, cols);
 
@@ -194,6 +190,7 @@ void Wordle::play()
     move(currentPos.y, currentPos.x);
     refresh();
 
+
     // main code for getting guess & ensuring it's valid, then printing with colors
     for (int i = 1; i <= answer.length(); i++)
     {
@@ -248,32 +245,32 @@ void Wordle::play()
     }
 
     int centerCol = cols / 2;
+    int lineSpace = 2;
 
-    if (guess == answer)
-    {
+    if (guess == answer) {
         mvprintw(r + 7, centerCol - 16, "Yay! You guessed correctly! :D");
-    }
-    else
-    {
-        mvprintw(r + 6, centerCol - 13, "Aw, you didn't get the word!");
+    } else {
+        mvprintw(r + 7, centerCol - 13, "Aw, you didn't get the word!");
         std::string revealAnswer = "The word is: " + answer;
-        mvprintw(r + 7, centerCol - revealAnswer.length() / 2, "%s", revealAnswer.c_str());
+        mvprintw(r + 7 + lineSpace, centerCol - revealAnswer.length() / 2, "%s", revealAnswer.c_str());
     }
 
     std::string prompt = "Would you like to play again?";
-    mvprintw(r + 9, centerCol - prompt.length() / 2, "%s", prompt.c_str());
+    mvprintw(r + 7 + 2 * lineSpace, centerCol - prompt.length() / 2, "%s", prompt.c_str());
 
-    const char *choices[] =
-        {
-            "Play Again",
-            "Quit",
-        };
 
-    currentPos.y = r + 10;
+    const char *choices[] = {
+        "Play Again",
+        "Quit",
+    };
+
+    currentPos.y = r + 8 + 2 * lineSpace;
     currentPos.x = centerCol - prompt.length() + 24;
 
     mvprintw(currentPos.y, currentPos.x, "%s", choices[0]);
     mvprintw(currentPos.y + 1, currentPos.x + 3, "%s", choices[1]);
+
+
 }
 
 void Wordle::loadScreen()
@@ -343,15 +340,7 @@ std::vector<Wordle::colors> Wordle::getColors(const std::string &guess) const
     }
     std::vector<Wordle::colors> result(guess.length(), white); // declares vector of size guessLength and fills it with white
 
-    // TESTING
-    //  answer: JOLLY  (2 L's), this is already set in constructor rn
-    //  guess: LOLLY   (3 L's)
-    //  colors should be: 1st L is WHITE, everything else GREEN
-    // problem: 1st L is yellow, which is wrong. (OLLY is green, which is good!)
-    // yellow implies you can move that letter somewhere else to get answer, but yellow L then all green OLLY contradicts that idea.
-    // only the 1st letter is wrong, but you can't move it to another position since we know OLLY is the fully correct part
-
-    // if letter is in the right spot mark it green, and decrement that letter count in guess map
+    
     //  green letters have priority
     for (int k = 0; k < guess.length(); k++)
     {
@@ -360,11 +349,6 @@ std::vector<Wordle::colors> Wordle::getColors(const std::string &guess) const
             result[k] = green;
             answerLettersCount[guess[k]]--;
         }
-
-        // might need to modify case for yellow, for example answer = "jolly", and guess = "local", both l's would need to be yellow
-
-        // else if (charIndex(answer, letter) == k)
-        //     result.push_back(green);
     }
     for (int j = 0; j < guess.length(); j++)
     {
