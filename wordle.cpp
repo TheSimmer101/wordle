@@ -109,6 +109,22 @@ std::string Wordle::getGuess(coordinates startPos)
 
 void Wordle::play()
 {
+   // clear();
+    
+    const char *choices[] = {
+        "Yes",
+        "No",
+    };
+
+    int highlight = 0;
+    int choice = 0;
+
+    while(choices[highlight] == "Yes")
+    {
+    loadScreen();
+    int randomPos = 1 + rand() % 105;
+    answer = possible_answers[randomPos];
+    curs_set(1);
     int rows, cols;
     getmaxyx(stdscr, rows, cols);
 
@@ -259,21 +275,14 @@ void Wordle::play()
     mvprintw(r + 7 + 2 * lineSpace, centerCol - prompt.length() / 2, "%s", prompt.c_str());
 
 
-    const char *choices[] = {
-        "Yes",
-        "No",
-    };
-
-    int highlight = 0;
-    int choice = 0;
+    
     currentPos.y = r + 8 + 2 * lineSpace;
     currentPos.x = centerCol - prompt.length() + 24;
 
     //mvprintw(currentPos.y, currentPos.x, "%s", choices[0]);
     // mvprintw(currentPos.y + 1, currentPos.x + 3, "%s", choices[1]);
-
-    bool loop = true;
-    while(loop)
+    curs_set(0);
+    while(true)
     {
         for(int i = 0; i < 2; i++)
         {
@@ -288,14 +297,25 @@ void Wordle::play()
         choice = getch();
 
         if(choice == KEY_UP)
+        {
             highlight--;
+            if(highlight == -1)
+                highlight++;
+        }
         else if (choice == KEY_DOWN)
+        {
             highlight++;
+            if(highlight == 2)
+                highlight--;
+        }   
         else if(choice == 10 || choice == KEY_ENTER || user_input == '\n' )
-            loop = false;
+            break;
     }
-    wattroff(stdscr,A_REVERSE);
-
+    if(choices[highlight] == "Yes")
+        clear();
+    }
+    
+    
 }
 
 void Wordle::loadScreen()
