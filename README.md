@@ -42,7 +42,7 @@ Once your docker container is running, the username in the terminal should chang
 
 
 #### Here are other resources we used:
-* Ncurses: a library to display the colors in the terminal and update in real-time based on the player's input
+* Ncurses: a library to display the colors in the terminal and update in real-time based on the player's input. [Documentation Here](https://tldp.org/HOWTO/NCURSES-Programming-HOWTO/)  
 * Hunspell: a spell-checking library that ensures players follow Wordle's rule of inputting real words
 * LibreOffice English Dictionary: the Hunspell library does not come with dictionary files, so we had to source some. English dictionary files from [LibreOffice Dictionary](https://extensions.libreoffice.org/en/extensions/show/english-dictionaries) 
 * Ascii art:
