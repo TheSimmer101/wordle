@@ -134,7 +134,7 @@ void Wordle::play()
 
     // instructions for game
     mvprintw(r - 12, c - 40, "Here's how you play:");
-    mvprintw(r - 11, c - 40, "You have five chances to guess the right word!");
+    mvprintw(r - 11, c - 40, "You have several chances to guess the right word!");
     mvprintw(r - 10, c - 40, "For each letter in your guess, the color changes depending on how close you are to the answer.");
     mvprintw(r - 8, c - 40, "If the letter is green: the letter is in the correct spot, well done!");
     mvprintw(r - 7, c - 40, "If the letter is yellow: the letter is somewhere in the word, but not where you put it");
@@ -291,7 +291,6 @@ void Wordle::play()
                 wattron(stdscr, A_REVERSE);
             }
             mvprintw(currentPos.y + i, currentPos.x + 4, "%s", choices[i]);
-          //  mvprintw(currentPos.y + 2, currentPos.x, "%s", choices[1]);
             wattroff(stdscr, A_REVERSE);
         }
         choice = getch();
