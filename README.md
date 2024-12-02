@@ -9,12 +9,15 @@ The rules of the game are the same as the original, except all the possible answ
 
 For those who are unfamiliar, this is essentially a word-guessing game.
 
-You have five chances to guess the right word! For each letter in your guess, the color changes depending on how close you are to the answer.
+You have several chances to guess the right word! For each letter in your guess, the color changes depending on how close you are to the answer.
 
 If the letters are:
 * Green: the letter is in the correct spot, well done!
 * Yellow: the letter is somewhere in the word, but not where you put it.
 * White: the letter is not in the word at all.
+
+### 🚨SCREEN DISCLAIMER!!!🚨
+When playing our game in your local terminal, please make sure the terminal is at **full screen** to ensure perfect quality!
 
 ### Resources:
 We have used multiple libraries to create this game, but lucky for you guys, there’s a way to avoid installing all of them to play our game. You can use Docker! 
@@ -44,5 +47,6 @@ Once your docker container is running, the username in the terminal should chang
 * Ascii art:
   * Loading screen -> [Wintery scene](https://www.asciiart.eu/holiday-and-events/christmas/other)
   * Gameplay screen -> [Snowmen](https://www.asciiart.eu/holiday-and-events/christmas/snowmen), [Santa sleigh](https://saravitaya.tripod.com/_ArtXmas.html#santasleigh)
+  * End screen -> [Santa hanging from chimney](https://www.asciiart.eu/holiday-and-events/christmas/santa-claus)
 
 ### HAVE FUN!!!
