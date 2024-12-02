@@ -54,7 +54,8 @@ Once your docker container is running, the username in the terminal should chang
 
 ***Disclaimer***  
 
-*Dockerfile was created with the help of artificial intelligence
+*Dockerfile was created with the help of artificial intelligence.  
+
 *The Makefile was inspired by the Makefiles provided in CSCI-235 at Hunter College
 
 ### HAVE FUN!!!
