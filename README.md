@@ -52,7 +52,8 @@ Once your docker container is running, the username in the terminal should chang
 * Highlighted Menu for "Play Again?" -> [Casual Coder YT](https://www.youtube.com/watch?v=3YiPdibiQHA)
 * List of Winter Words -> [Words](https://capitalizemytitle.com/winter-words/)
 
-***Disclaimer***
+***Disclaimer***  
+
 *Dockerfile was created with the help of artificial intelligence
 *The Makefile was inspired by the Makefiles provided in CSCI-235 at Hunter College
 
