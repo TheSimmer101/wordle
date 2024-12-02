@@ -260,16 +260,41 @@ void Wordle::play()
 
 
     const char *choices[] = {
-        "Play Again",
-        "Quit",
+        "Yes",
+        "No",
     };
 
+    int highlight = 0;
+    int choice = 0;
     currentPos.y = r + 8 + 2 * lineSpace;
     currentPos.x = centerCol - prompt.length() + 24;
 
-    mvprintw(currentPos.y, currentPos.x, "%s", choices[0]);
-    mvprintw(currentPos.y + 1, currentPos.x + 3, "%s", choices[1]);
+    //mvprintw(currentPos.y, currentPos.x, "%s", choices[0]);
+    // mvprintw(currentPos.y + 1, currentPos.x + 3, "%s", choices[1]);
 
+    bool loop = true;
+    while(loop)
+    {
+        for(int i = 0; i < 2; i++)
+        {
+            if(i == highlight)
+            {
+                wattron(stdscr, A_REVERSE);
+            }
+            mvprintw(currentPos.y + i, currentPos.x, "%s", choices[i]);
+          //  mvprintw(currentPos.y + 2, currentPos.x, "%s", choices[1]);
+            wattroff(stdscr, A_REVERSE);
+        }
+        choice = getch();
+
+        if(choice == KEY_UP)
+            highlight--;
+        else if (choice == KEY_DOWN)
+            highlight++;
+        else if(choice == 10 || choice == KEY_ENTER || user_input == '\n' )
+            loop = false;
+    }
+    wattroff(stdscr,A_REVERSE);
 
 }
 
