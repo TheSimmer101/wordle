@@ -18,7 +18,6 @@ int main()
 {
   Wordle w;
   w.play();
-  // w.endScreen();
 
   getch();
   return 0;

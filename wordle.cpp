@@ -290,7 +290,7 @@ void Wordle::play()
             {
                 wattron(stdscr, A_REVERSE);
             }
-            mvprintw(currentPos.y + i, currentPos.x, "%s", choices[i]);
+            mvprintw(currentPos.y + i, currentPos.x + 4, "%s", choices[i]);
           //  mvprintw(currentPos.y + 2, currentPos.x, "%s", choices[1]);
             wattroff(stdscr, A_REVERSE);
         }
@@ -475,11 +475,6 @@ void Wordle::endScreen() {
 
         endwin();
 }
-
-
-
-
-
 
 Wordle::~Wordle()
 {
