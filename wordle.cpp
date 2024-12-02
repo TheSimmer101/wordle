@@ -314,6 +314,9 @@ void Wordle::play()
     if(choices[highlight] == "Yes")
         clear();
     }
+    if(choices[highlight] == "No") {
+        endScreen();
+    }
     
     
 }
