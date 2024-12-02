@@ -23,6 +23,7 @@ When playing our game in your local terminal, please make sure the terminal is a
 We have used multiple libraries to create this game, but lucky for you guys, there’s a way to avoid installing all of them to play our game. You can use Docker! 
 
 Docker is a software platform that helped us develop, deploy, and manage our application efficiently by packaging it into containers to ensure consistent performance across various environments. With our Dockerfile, accessing and running our game is quick and easy! This is available for both Linux, Windows, and Mac.
+Docker is not mandatory, but if you choose not to use it, please be sure to install all required dependencies (g++, Makefile, ncurses, Hunspell)
 
 #### Here’s how you can do it:
 * Git clone this repository first in your terminal and make it your currently open directory
@@ -43,10 +44,16 @@ Once your docker container is running, the username in the terminal should chang
 #### Here are other resources we used:
 * Ncurses: a library to display the colors in the terminal and update in real-time based on the player's input
 * Hunspell: a spell-checking library that ensures players follow Wordle's rule of inputting real words
-* LibreOffice English Dictionary: an extension that enhances spell-checking by verifying words against its dictionary. Based on user input, it checks whether a word exists in the dictionary; if it doesn’t, the word is marked as invalid
+* LibreOffice English Dictionary: the Hunspell library does not come with dictionary files, so we had to source some. English dictionary files from [LibreOffice Dictionary](https://extensions.libreoffice.org/en/extensions/show/english-dictionaries) 
 * Ascii art:
   * Loading screen -> [Wintery scene](https://www.asciiart.eu/holiday-and-events/christmas/other)
   * Gameplay screen -> [Snowmen](https://www.asciiart.eu/holiday-and-events/christmas/snowmen), [Santa sleigh](https://saravitaya.tripod.com/_ArtXmas.html#santasleigh)
-  * End screen -> [Santa hanging from chimney](https://www.asciiart.eu/holiday-and-events/christmas/santa-claus)
+  * End screen -> [Santa hanging from chimney by Joan Stark](https://www.asciiart.eu/holiday-and-events/christmas/santa-claus)
+* Highlighted Menu for "Play Again?" -> [Casual Coder YT](https://www.youtube.com/watch?v=3YiPdibiQHA)
+* List of Winter Words -> [Words](https://capitalizemytitle.com/winter-words/)
+
+***Disclaimer***
+*Dockerfile was created with the help of artificial intelligence
+*The Makefile was inspired by the Makefiles provided in CSCI-235 at Hunter College
 
 ### HAVE FUN!!!
