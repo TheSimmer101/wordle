@@ -16,6 +16,8 @@ If the letters are:
 * Yellow: the letter is somewhere in the word, but not where you put it.
 * White: the letter is not in the word at all.
 
+[Demo of the game](https://drive.google.com/file/d/1nA2Tjaf9ZgVG9kCAeBXm-5qcnNyu-R-J/view?usp=sharing)
+
 ### 🚨SCREEN DISCLAIMER!!!🚨
 When playing our game in your local terminal, please make sure the terminal is at **full screen** to ensure perfect quality!
 
